@@ -5,6 +5,7 @@ const GlobalStyle = createGlobalStyle`
         --font-primary: "poppins";
         --primary-color: #f7f8f3;
         --secondary-color: #292929;
+        --focus-visible: 3px solid blanchedalmond;
     }
         
     *{
