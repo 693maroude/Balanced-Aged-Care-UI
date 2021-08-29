@@ -1,3 +1,24 @@
+:root {
+    --primary: #1e90ff;
+    --primary-dark: #1b79d6;
+    --secondary: #ffffff;
+}
+
 .App {
     text-align: center;
+}
+.button {
+    border: none;
+    color: white;
+    margin-top: 1rem;
+    background-color: var(--primary-dark);
+    border-radius: 2px;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.button:hover {
+    background-color: var(--primary);
+    cursor: pointer;
 }
