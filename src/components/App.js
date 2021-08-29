@@ -1,12 +1,12 @@
 import React from "react";
 import GlobalStyle from "./styles/GlobalStyle";
-import SignatureModal from "./SignatureModal";
+import Email from "./Email";
 
 const App = () => {
   return (
     <>
-      <SignatureModal />
       <GlobalStyle />
+      <Email />
     </>
   );
 };

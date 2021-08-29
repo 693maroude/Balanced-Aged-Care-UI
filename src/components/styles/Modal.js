@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { CloseButton } from "./Button";
 
 const Background = styled.div`
@@ -7,10 +7,19 @@ const Background = styled.div`
   height: 100%;
   position: fixed;
   top: 0;
-  background: rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 0.2);
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const modal_in = keyframes`
+  0% {
+      opacity: 0;
+    }
+  100% {
+    opacity: 1;
+  }
 `;
 
 const ModalWrapper = styled.div`
@@ -26,18 +35,7 @@ const ModalWrapper = styled.div`
   color: var(--secondary-color);
   box-shadow: 2px 2px 10px -3px var(--secondary-color);
 
-  animation-name: modal-in;
-  animation-duration: 0.3s;
-  animation-timing-function: ease-in-out;
-
-  @keyframes modal-in {
-    0% {
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
+  animation: ${modal_in} 0.3s ease-in-out;
 `;
 
 const Modal = ({ showModal, setShowModal, children }) => {

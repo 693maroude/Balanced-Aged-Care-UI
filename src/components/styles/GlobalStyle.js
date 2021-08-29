@@ -13,18 +13,19 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         font-family: var(--font-primary);
+        text-align: justify;
     }
 
-     body {
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        background-color: var(--primary-color);
-      }
-      
-      code {
-        font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-          monospace;
-      }
+    body {
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-color: var(--primary-color);
+    }
+    
+    code {
+      font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
+    }
 `;
 
 export default GlobalStyle;

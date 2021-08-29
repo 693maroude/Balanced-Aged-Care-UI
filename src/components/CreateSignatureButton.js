@@ -3,7 +3,7 @@ import Modal from "./styles/Modal";
 import { Button } from "./styles/Button";
 import List from "./styles/List";
 
-const Signature = () => {
+const CreateSignatureButton = () => {
   const [showModal, setShowModal] = useState(false);
   const openModal = () => {
     setShowModal((prev) => !prev);
@@ -23,4 +23,4 @@ const Signature = () => {
   );
 };
 
-export default Signature;
+export default CreateSignatureButton;
