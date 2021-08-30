@@ -9,7 +9,7 @@ const CreateSignatureButton = ({ setSignature }) => {
   };
   return (
     <>
-      <Button onClick={openModal}>Create New Signature</Button>
+      <Button onClick={openModal}>Create</Button>
       <Modal
         showModal={showModal}
         setShowModal={setShowModal}

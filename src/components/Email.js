@@ -4,58 +4,42 @@ import axios from "axios";
 import EmailContainer from "./styles/EmailContainer";
 import Spinner from "./styles/Spinner";
 import CreateSignatureButton from "./CreateSignatureButton";
+import { HTML } from "./temp";
 
 export default function Email() {
-  const [body, setBody] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [body, setBody] = useState(HTML);
+  const [loading, setLoading] = useState(false);
   const [signature, setSignature] = useState(null);
-
-  const Signature = () => {
-    return signature ? (
-      <img src={signature} alt="Signature" height="80" />
-    ) : (
-      <CreateSignatureButton setSignature={setSignature} />
-    );
-  };
-
-  useEffect(() => {
-    if (signature !== null) {
-      ReactDOM.render(<Signature />, document.getElementById("signature-div"));
-    }
-  }, [signature]);
 
   const getBody = async () => {
     try {
       const res = await axios.get(
         `https://1tz4y5lnl9.execute-api.ap-southeast-2.amazonaws.com/dev/getEmail/168909`
       );
-      setBody(res.data.body);
       setLoading(false);
+      setBody(res.data.body);
     } catch (err) {
       console.error("API Error", err);
     }
   };
 
   useEffect(() => {
-    getBody();
+    //getBody();
   }, []);
 
   useEffect(() => {
     if (loading === false) {
       const entry = document.getElementsByClassName("dynamic-entry");
       const signatureEntry = entry[1];
-      signatureEntry.removeChild(signatureEntry.children[1]);
+      signatureEntry.children[1].style.display = "none";
 
-      const div = document.createElement("div");
-      div.id = "signature-div";
-      div.style.backgroundColor = "var(--primary-color";
-      div.style.textAlign = "center";
-      div.style.paddingBlock = "10px";
-      div.style.borderRadius = "6px";
+      const span = document.createElement("span");
+      span.id = "signature-span";
+      span.style.textAlign = "center";
+      span.style.paddingBlock = "10px";
+      span.style.borderRadius = "6px";
 
-      ReactDOM.render(<Signature />, div);
-
-      signatureEntry.append(div);
+      signatureEntry.append(span);
 
       Array.from(entry).forEach((node) => {
         const type = node.getAttribute("data-type");
@@ -64,6 +48,30 @@ export default function Email() {
       });
     }
   }, [loading]);
+
+  useEffect(() => {
+    if (loading) return;
+
+    if (signature === null) {
+      ReactDOM.render(
+        <CreateSignatureButton setSignature={setSignature} />,
+        document.getElementById("signature-span")
+      );
+    } else {
+      const entry = document.getElementsByClassName("dynamic-entry");
+      const signatureEntry = entry[1];
+      signatureEntry.children[1].style.display = "inline";
+      signatureEntry.removeChild(signatureEntry.children[2]);
+
+      const image = document.createElement("img");
+      image.src = signature;
+      image.style.position = "absolute";
+      image.style.left = "1rem";
+      image.style.bottom = "0rem";
+      image.height = "45";
+      signatureEntry.children[1].append(image);
+    }
+  }, [signature, loading]);
 
   return loading ? (
     <Spinner />

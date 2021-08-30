@@ -2,7 +2,7 @@ import styled from "styled-components";
 import close from "../../assets/close.png";
 
 export const Button = styled.button`
-  padding: 12px 14px;
+  padding: 0.25rem 0.5rem;
   border: none;
   background-color: var(--primary-color);
   border-radius: 4px;
