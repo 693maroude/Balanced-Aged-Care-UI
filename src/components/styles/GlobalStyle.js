@@ -5,7 +5,9 @@ const GlobalStyle = createGlobalStyle`
         --font-primary: "poppins";
         --primary-color: #f7f8f3;
         --secondary-color: #292929;
-        --focus-visible: 3px solid blanchedalmond;
+        --kalysys-blue: #0E9799;
+        --focus-visible: 3px solid #0E9799;
+        --gray: #333;
     }
         
     *{
@@ -14,6 +16,7 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         font-family: var(--font-primary);
         text-align: justify;
+        color: var(--gray);
     }
 
     body {

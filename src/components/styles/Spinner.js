@@ -15,7 +15,7 @@ const Spinner = styled.div`
   margin: -76px 0 0 -76px;
   border: 16px solid #f3f3f3;
   border-radius: 50%;
-  border-top: 16px solid #3498db;
+  border-top: 16px solid var(--kalysys-blue);
 
   animation: ${spin} 1s cubic-bezier(0.5, 0.7, 0.9, 0.9) infinite;
 `;

@@ -1,7 +1,6 @@
 import { useState } from "react";
-import Modal from "./styles/Modal";
+import Modal from "./Modal";
 import { Button } from "./styles/Button";
-import List from "./styles/List";
 
 const CreateSignatureButton = () => {
   const [showModal, setShowModal] = useState(false);
@@ -11,14 +10,7 @@ const CreateSignatureButton = () => {
   return (
     <>
       <Button onClick={openModal}>Create New Signature</Button>
-      <Modal showModal={showModal} setShowModal={setShowModal}>
-        <h4>Create New Signature</h4>
-        <List>
-          <li style={{ marginLeft: "auto" }}>Type it in</li>
-          <li style={{ marginRight: "auto" }}>Draw it in</li>
-        </List>
-        <hr />
-      </Modal>
+      <Modal showModal={showModal} setShowModal={setShowModal} />
     </>
   );
 };

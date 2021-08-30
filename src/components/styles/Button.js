@@ -2,14 +2,14 @@ import styled from "styled-components";
 import close from "../../assets/close.png";
 
 export const Button = styled.button`
-  padding: 18px 20px;
+  padding: 12px 14px;
   border: none;
   background-color: var(--primary-color);
-  border-radius: 32px;
+  border-radius: 4px;
   outline: none;
-  font-size: 1.2rem;
+  font-size: 0.9rem;
   color: var(--secondary-color);
-  box-shadow: 2px 2px 10px -3px var(--secondary-color);
+  box-shadow: 2px 2px 10px -5px var(--secondary-color);
   opacity: 76%;
   transition: opacity 0.2s;
   cursor: pointer;
@@ -17,7 +17,6 @@ export const Button = styled.button`
   :hover,
   :focus-visible {
     opacity: 100%;
-    transform: scale(1.01);
   }
 
   :active {
