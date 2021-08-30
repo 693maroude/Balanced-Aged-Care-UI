@@ -8,6 +8,21 @@ import CreateSignatureButton from "./CreateSignatureButton";
 export default function Email() {
   const [body, setBody] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [signature, setSignature] = useState(null);
+
+  const Signature = () => {
+    return signature ? (
+      <img src={signature} alt="Signature" height="80" />
+    ) : (
+      <CreateSignatureButton setSignature={setSignature} />
+    );
+  };
+
+  useEffect(() => {
+    if (signature !== null) {
+      ReactDOM.render(<Signature />, document.getElementById("signature-div"));
+    }
+  }, [signature]);
 
   const getBody = async () => {
     try {
@@ -28,20 +43,25 @@ export default function Email() {
   useEffect(() => {
     if (loading === false) {
       const entry = document.getElementsByClassName("dynamic-entry");
-      entry[1].removeChild(entry[1].children[1]);
+      const signatureEntry = entry[1];
+      signatureEntry.removeChild(signatureEntry.children[1]);
 
-      const elmnt = document.createElement("span");
-      ReactDOM.render(<CreateSignatureButton />, elmnt);
+      const div = document.createElement("div");
+      div.id = "signature-div";
+      div.style.backgroundColor = "var(--primary-color";
+      div.style.textAlign = "center";
+      div.style.paddingBlock = "10px";
+      div.style.borderRadius = "6px";
 
-      entry[1].append(elmnt);
-      // let formData = {};
-      // Array.from(entry).forEach((node, i) => {
-      //   const type = node.getAttribute("data-type");
-      //   const dataId = node.getAttribute("data-id");
-      //   const inputNode = node.children[1];
-      //   formData[dataId] = { value: "", type };
-      // });
-      // console.log(formData);
+      ReactDOM.render(<Signature />, div);
+
+      signatureEntry.append(div);
+
+      Array.from(entry).forEach((node) => {
+        const type = node.getAttribute("data-type");
+        const inputNode = node.children[1];
+        if (type !== "signature") inputNode.disabled = false;
+      });
     }
   }, [loading]);
 

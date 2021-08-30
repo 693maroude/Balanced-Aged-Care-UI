@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import SignatureCanvas from "react-signature-canvas";
 import { ModalBackground, ModalWrapper } from "./styles/Modal";
-import { Button, CloseButton } from "./styles/Button";
+import { Button, CloseButton, ListButton } from "./styles/Button";
 import List from "./styles/List";
 
-const Modal = ({ showModal, setShowModal }) => {
+const Modal = ({ showModal, setShowModal, setSignature }) => {
   const sigPad = useRef({});
   var sigArray = [];
   return (
@@ -18,8 +18,12 @@ const Modal = ({ showModal, setShowModal }) => {
               onClick={() => setShowModal((prev) => !prev)}
             />
             <List>
-              <li style={{ marginLeft: "auto" }}>Type it in</li>
-              <li style={{ marginRight: "auto" }}>Draw it in</li>
+              <li style={{ marginLeft: "auto" }}>
+                <ListButton>Type it in</ListButton>
+              </li>
+              <li style={{ marginRight: "auto" }}>
+                <ListButton>Draw it in</ListButton>
+              </li>
             </List>
             <hr />
             <SignatureCanvas
@@ -37,6 +41,16 @@ const Modal = ({ showModal, setShowModal }) => {
             </Button>
             <Button onClick={() => sigPad.current.fromDataURL(sigArray)}>
               Load
+            </Button>
+            <Button
+              onClick={() => {
+                sigArray = sigPad.current
+                  .getTrimmedCanvas()
+                  .toDataURL("image/png");
+                setSignature(sigArray);
+              }}
+            >
+              OK
             </Button>
             {/* var img = new Image(); img.src = canvas.toDataURL(); document.body.appendChild(img); */}
           </ModalWrapper>

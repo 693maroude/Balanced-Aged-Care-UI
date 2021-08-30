@@ -54,3 +54,19 @@ export const CloseButton = styled.button`
     outline: var(--focus-visible);
   }
 `;
+
+export const ListButton = styled.button`
+  padding: 12px 14px;
+  border: none;
+  background-color: transparent;
+  outline: none;
+  font-size: 0.9rem;
+  color: var(--secondary-color);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transform: translateY(2px);
+
+  :active {
+    border-bottom: 2px solid blue;
+  }
+`;
