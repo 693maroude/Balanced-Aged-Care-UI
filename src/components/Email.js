@@ -3,14 +3,18 @@ import ReactDOM from "react-dom";
 import axios from "axios";
 import EmailContainer from "./styles/EmailContainer";
 import Spinner from "./styles/Spinner";
-import CreateSignatureButton from "./CreateSignatureButton";
-import { RefreshButton } from "./styles/Button";
+import Modal from "./Modal";
+import { Button, RefreshButton } from "./styles/Button";
 import { HTML } from "./temp";
 
 export default function Email() {
   const [body, setBody] = useState(HTML);
   const [loading, setLoading] = useState(false);
   const [signature, setSignature] = useState("none");
+  const [showModal, setShowModal] = useState(false);
+  const openModal = () => {
+    setShowModal((prev) => !prev);
+  };
 
   const getBody = async () => {
     try {
@@ -24,9 +28,9 @@ export default function Email() {
     }
   };
 
-  useEffect(() => {
-    //getBody();
-  }, []);
+  // useEffect(() => {
+  //   getBody();
+  // }, []);
 
   useEffect(() => {
     if (loading === false) {
@@ -55,10 +59,15 @@ export default function Email() {
 
     if (signature === "none") {
       ReactDOM.render(
-        <CreateSignatureButton
-          signature={signature}
-          setSignature={setSignature}
-        />,
+        <>
+          <Button onClick={openModal}>Create</Button>
+          <Modal
+            showModal={showModal}
+            setShowModal={setShowModal}
+            signature={signature}
+            setSignature={setSignature}
+          />
+        </>,
         document.getElementById("signature-span")
       );
     } else {
@@ -76,6 +85,7 @@ export default function Email() {
       image.style.bottom = "0rem";
       image.style.maxHeight = "45px";
       image.style.maxWidth = "120px";
+
       if (signatureEntry.children[1].childElementCount === 1)
         signatureEntry.children[1].append(image);
       else
@@ -102,7 +112,7 @@ export default function Email() {
         document.getElementById("button-span")
       );
     }
-  }, [signature, loading]);
+  }, [signature, loading, showModal]);
 
   return loading ? (
     <Spinner />

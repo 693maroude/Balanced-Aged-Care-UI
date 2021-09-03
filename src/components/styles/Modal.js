@@ -27,7 +27,7 @@ const modal_in = keyframes`
 export const ModalWrapper = styled.div`
   position: absolute;
   width: 600px;
-  height: 400px;
+  height: 420px;
   padding-block: 50px;
   padding-inline: min(6vw, 55px);
   border: none;
