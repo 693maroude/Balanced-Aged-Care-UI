@@ -1,8 +1,10 @@
 import styled from "styled-components";
 import close from "../../assets/close.png";
+// import refresh from "../../assets/refresh.png";
 
 export const Button = styled.button`
   padding: 0.25rem 0.5rem;
+  margin-inline: 7px;
   border: none;
   background-color: var(--primary-color);
   border-radius: 4px;
@@ -55,6 +57,29 @@ export const CloseButton = styled.button`
   }
 `;
 
+export const RefreshButton = styled.button`
+  border-radius: 50%;
+  border: none;
+  background: url(${close});
+  background-size: cover;
+  background-position: center;
+  height: 20px;
+  width: 20px;
+  opacity: 46%;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  :hover,
+  :focus-visible {
+    opacity: 100%;
+    transform: scale(1.01);
+  }
+
+  :focus-visible {
+    outline: var(--focus-visible);
+  }
+`;
+
 export const ListButton = styled.button`
   padding: 12px 14px;
   border: none;
@@ -63,10 +88,14 @@ export const ListButton = styled.button`
   font-size: 0.9rem;
   color: var(--secondary-color);
   cursor: pointer;
-  border-bottom: 2px solid transparent;
+  border-bottom: 2px solid ${(props) => props.underlineColor};
   transform: translateY(2px);
 
   :active {
-    border-bottom: 2px solid blue;
+    border-bottom: 2px solid var(--kalysys-blue);
+  }
+
+  :focus-visible {
+    outline: var(--focus-visible);
   }
 `;
