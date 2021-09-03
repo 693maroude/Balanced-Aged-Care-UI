@@ -129,9 +129,11 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
                   </Button>
                 </div>
                 <TextCanvas
-                  canvasText={canvasText}
                   setShowModal={setShowModal}
                   setSignature={setSignature}
+                  setInputValue={setInputValue}
+                  canvasText={canvasText}
+                  setCanvasText={setCanvasText}
                 />
               </>
             )}
