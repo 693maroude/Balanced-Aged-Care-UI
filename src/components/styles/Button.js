@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import close from "../../assets/close.png";
+import refresh from "../../assets/refresh.png";
 
 export const Button = styled.button`
   padding: 0.25rem 0.5rem;
@@ -40,6 +41,29 @@ export const CloseButton = styled.button`
   background-position: center;
   height: 30px;
   width: 30px;
+  opacity: 46%;
+  cursor: pointer;
+  transition: opacity 0.2s;
+
+  :hover,
+  :focus-visible {
+    opacity: 100%;
+    transform: scale(1.01);
+  }
+
+  :focus-visible {
+    outline: var(--focus-visible);
+  }
+`;
+
+export const RefreshButton = styled.button`
+  border-radius: 50%;
+  border: none;
+  background: url(${refresh});
+  background-size: cover;
+  background-position: center;
+  height: 20px;
+  width: 20px;
   opacity: 46%;
   cursor: pointer;
   transition: opacity 0.2s;

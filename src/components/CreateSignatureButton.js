@@ -2,7 +2,7 @@ import { useState } from "react";
 import Modal from "./Modal";
 import { Button } from "./styles/Button";
 
-const CreateSignatureButton = ({ setSignature }) => {
+const CreateSignatureButton = ({ signature, setSignature }) => {
   const [showModal, setShowModal] = useState(false);
   const openModal = () => {
     setShowModal((prev) => !prev);
@@ -13,6 +13,7 @@ const CreateSignatureButton = ({ setSignature }) => {
       <Modal
         showModal={showModal}
         setShowModal={setShowModal}
+        signature={signature}
         setSignature={setSignature}
       />
     </>
