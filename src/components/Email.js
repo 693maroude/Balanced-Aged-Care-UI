@@ -26,7 +26,19 @@ export default function Email() {
         `https://1tz4y5lnl9.execute-api.ap-southeast-2.amazonaws.com/dev/getEmail/168909`
       );
       setLoading(false);
-      setBody(res.data.body);
+      console.log(res.data.body);
+    } catch (err) {
+      console.error("API Error", err);
+    }
+  };
+
+  const getAppointmentValues = async () => {
+    try {
+      const res = await axios.get(
+        `https://1tz4y5lnl9.execute-api.ap-southeast-2.amazonaws.com/dev/getAppointment/158238`
+      );
+      setLoading(false);
+      console.log(res.data);
     } catch (err) {
       console.error("API Error", err);
     }
@@ -43,6 +55,9 @@ export default function Email() {
     console.log(id, recordValueId);
 
     // now call the lambda function to get email template as well as the values
+    getBody();
+
+    getAppointmentValues();
   }, []);
 
   useEffect(() => {

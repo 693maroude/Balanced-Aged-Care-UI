@@ -14,7 +14,7 @@ const Email_in = keyframes`
 const EmailContainer = styled.div`
   position: relative;
   height: auto;
-  width: 900px;
+  width: 780px;
   padding-block: 60px;
   margin-inline: auto;
   margin-block: 50px;
