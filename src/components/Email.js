@@ -7,11 +7,15 @@ import Modal from "./Modal";
 import { Button, RefreshButton } from "./styles/Button";
 import { HTML } from "./temp";
 
+import { useLocation, useHistory } from "react-router-dom";
+import qs from "query-string";
+
 export default function Email() {
   const [body, setBody] = useState(HTML);
   const [loading, setLoading] = useState(false);
   const [signature, setSignature] = useState("none");
   const [showModal, setShowModal] = useState(false);
+
   const openModal = () => {
     setShowModal((prev) => !prev);
   };
@@ -28,9 +32,18 @@ export default function Email() {
     }
   };
 
-  // useEffect(() => {
-  //   getBody();
-  // }, []);
+  // to get the params (emailTemplate id and recordValueId) from URL
+  const location = useLocation();
+  useEffect(() => {
+    console.log(window.location.href);
+    console.log(location);
+    console.log(qs.parse(location.search));
+
+    const { id, recordValueId } = qs.parse(location.search);
+    console.log(id, recordValueId);
+
+    // now call the lambda function to get email template as well as the values
+  }, []);
 
   useEffect(() => {
     if (loading === false) {
