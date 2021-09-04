@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import axios from "axios";
+import { Link } from "react-router-dom";
+import Modal from "./Modal";
+import Proceed from "./ProceedButton";
 import EmailContainer from "./styles/EmailContainer";
 import Spinner from "./styles/Spinner";
-import Modal from "./Modal";
-import { Button, RefreshButton } from "./styles/Button";
+import { Button, RemoveButton } from "./styles/Button";
 import { HTML } from "./temp";
 
-import { useLocation, useHistory } from "react-router-dom";
-import qs from "query-string";
-
 export default function Email() {
-  const [body, setBody] = useState(HTML);
-  const [loading, setLoading] = useState(false);
+  const [body /*, setBody*/] = useState(HTML);
+  const [loading /*, setLoading*/] = useState(false);
   const [signature, setSignature] = useState("none");
   const [showModal, setShowModal] = useState(false);
 
@@ -20,45 +18,11 @@ export default function Email() {
     setShowModal((prev) => !prev);
   };
 
-  const getBody = async () => {
-    try {
-      const res = await axios.get(
-        `https://1tz4y5lnl9.execute-api.ap-southeast-2.amazonaws.com/dev/getEmail/168909`
-      );
-      setLoading(false);
-      console.log(res.data.body);
-    } catch (err) {
-      console.error("API Error", err);
-    }
-  };
+  //getBody
 
-  const getAppointmentValues = async () => {
-    try {
-      const res = await axios.get(
-        `https://1tz4y5lnl9.execute-api.ap-southeast-2.amazonaws.com/dev/getAppointment/158238`
-      );
-      setLoading(false);
-      console.log(res.data);
-    } catch (err) {
-      console.error("API Error", err);
-    }
-  };
+  //apointmentValue
 
-  // to get the params (emailTemplate id and recordValueId) from URL
-  const location = useLocation();
-  useEffect(() => {
-    console.log(window.location.href);
-    console.log(location);
-    console.log(qs.parse(location.search));
-
-    const { id, recordValueId } = qs.parse(location.search);
-    console.log(id, recordValueId);
-
-    // now call the lambda function to get email template as well as the values
-    getBody();
-
-    getAppointmentValues();
-  }, []);
+  //const location
 
   useEffect(() => {
     if (loading === false) {
@@ -130,7 +94,7 @@ export default function Email() {
       signatureEntry.children[1].append(buttonSpan);
 
       ReactDOM.render(
-        <RefreshButton
+        <RemoveButton
           onClick={() => {
             signatureEntry.children[1].style.display = "none";
             signatureEntry.children[2].style.display = "inline";
@@ -147,6 +111,9 @@ export default function Email() {
   ) : (
     <EmailContainer>
       <div dangerouslySetInnerHTML={{ __html: body }} />
+      <Link to="/payment">
+        <Proceed />
+      </Link>
     </EmailContainer>
   );
 }

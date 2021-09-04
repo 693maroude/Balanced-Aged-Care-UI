@@ -17,7 +17,7 @@ const EmailContainer = styled.div`
   width: 780px;
   padding-block: 60px;
   margin-inline: auto;
-  margin-block: 50px;
+  margin-block: 50px 100px;
   background-color: #fff;
   box-shadow: 3px 3px 10px -3px hsl(0, 0%, 100%),
     3px 3px 10px -3px var(--secondary-color);
