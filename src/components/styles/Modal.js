@@ -7,7 +7,7 @@ export const ModalBackground = styled.div`
   top: 0;
   left: 0;
   background: rgba(0, 0, 0, 0.6);
-  //backdrop-filter: blur(2px);
+  z-index: 99;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +27,7 @@ const modal_in = keyframes`
 export const ModalWrapper = styled.div`
   position: absolute;
   width: 600px;
-  height: 420px;
+  height: 440px;
   padding-block: 50px;
   padding-inline: min(6vw, 55px);
   border: none;
