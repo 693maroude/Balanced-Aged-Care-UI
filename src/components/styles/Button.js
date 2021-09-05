@@ -4,7 +4,7 @@ import close from "../../assets/close.png";
 
 export const Button = styled.button`
   padding: 0.25rem 0.5rem;
-  margin-inline: 7px;
+  margin-inline-end: 10px;
   border: none;
   background-color: var(--primary-color);
   border-radius: 4px;
@@ -57,7 +57,7 @@ export const CloseButton = styled.button`
   }
 `;
 
-export const RefreshButton = styled.button`
+export const RemoveButton = styled.button`
   border-radius: 50%;
   border: none;
   background: url(${close});
@@ -86,7 +86,11 @@ export const ListButton = styled.button`
   background-color: transparent;
   outline: none;
   font-size: 0.9rem;
-  color: var(--secondary-color);
+  color: ${(props) => {
+    return props.underlineColor === "transparent"
+      ? "var(--secondary-color)"
+      : props.underlineColor;
+  }};
   cursor: pointer;
   border-bottom: 2px solid ${(props) => props.underlineColor};
   transform: translateY(2px);
@@ -97,5 +101,47 @@ export const ListButton = styled.button`
 
   :focus-visible {
     outline: var(--focus-visible);
+  }
+`;
+
+export const StyledProceedButton = styled(Button)`
+  position: absolute;
+  bottom: -75px;
+  right: -10px;
+  text-align: center;
+  padding: 14px 0px;
+  font-size: 18px;
+  width: 140px;
+  background-color: var(--kalysys-blue);
+  box-shadow: 2px 2px 6px -2px var(--secondary-color);
+  border-radius: 4px;
+  opacity: 0.9;
+  cursor: pointer;
+`;
+
+export const ButtonSpan = styled.span`
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  color: var(--primary-color);
+  transition: 0.5s;
+
+  ${StyledProceedButton}:hover & {
+    padding-right: 10px;
+  }
+
+  &::after {
+    content: "»";
+    position: absolute;
+    font-size: 26px;
+    opacity: 0;
+    top: -6px;
+    right: -10px;
+    transition: 0.5s;
+  }
+
+  ${StyledProceedButton}:hover &::after {
+    opacity: 0.95;
+    right: -6px;
   }
 `;

@@ -3,7 +3,13 @@ import trimCanvas from "trim-canvas";
 import StyledCanvas from "./styles/StyledCanvas";
 import { Button } from "./styles/Button";
 
-const TextCanvas = ({ canvasText, setShowModal, setSignature }) => {
+const TextCanvas = ({
+  setShowModal,
+  setSignature,
+  setInputValue,
+  canvasText,
+  setCanvasText,
+}) => {
   const canvasRef = useRef(null);
   const emptyCanvasRef = useRef(null);
   useEffect(() => {
@@ -34,7 +40,8 @@ const TextCanvas = ({ canvasText, setShowModal, setSignature }) => {
           } else {
             setSignature(trimCanvas(canvasRef.current).toDataURL("image/png"));
           }
-
+          setInputValue("");
+          setCanvasText("");
           setShowModal((prev) => !prev);
         }}
       >

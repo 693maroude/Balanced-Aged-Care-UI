@@ -58,12 +58,15 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
             <hr />
             {signatureMode === "draw" ? (
               <>
+                <br />
+                <h6>Signature Preview: </h6>
                 <div
                   style={{
                     backgroundColor: "white",
                     width: "475px",
-                    height: "200px",
-                    marginBlock: "10px",
+                    height: "150px",
+                    marginBlockStart: "16px",
+                    marginBlockEnd: "20px",
                     marginInline: "auto",
                     borderRadius: "6px",
                   }}
@@ -72,7 +75,7 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
                     ref={sigPad}
                     canvasProps={{
                       width: 475,
-                      height: 200,
+                      height: 150,
                       className: "sigCanvas",
                     }}
                   />
@@ -109,7 +112,7 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
                 >
                   <Input
                     type="text"
-                    placeholder="Enter text"
+                    placeholder="Full Name"
                     value={inputValue}
                     onChange={({ target: { value } }) => setInputValue(value)}
                   />
@@ -128,10 +131,14 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
                     Clear
                   </Button>
                 </div>
+                <br />
+                <h6>Signature Preview: </h6>
                 <TextCanvas
-                  canvasText={canvasText}
                   setShowModal={setShowModal}
                   setSignature={setSignature}
+                  setInputValue={setInputValue}
+                  canvasText={canvasText}
+                  setCanvasText={setCanvasText}
                 />
               </>
             )}

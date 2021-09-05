@@ -1,15 +1,28 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
+
+const Container_in = keyframes`
+  0% {
+      top: 100px;
+      opacity: 0;
+    }
+  100% {
+    top: 0;
+    opacity: 1;
+  }
+`;
 
 const Container = styled.div`
-  padding: 18px 20px;
-  border: none;
-  background-color: var(--primary-color);
-  border-radius: 32px;
-  outline: none;
-  font-size: 1.2rem;
-  color: var(--secondary-color);
-  box-shadow: -3px -3px 4px -3px hsl(0, 0%, 100%),
+  position: relative;
+  height: auto;
+  width: 780px;
+  padding-block: 60px;
+  margin-inline: auto;
+  margin-block: 50px 100px;
+  background-color: #fff;
+  box-shadow: 3px 3px 10px -3px hsl(0, 0%, 100%),
     3px 3px 10px -3px var(--secondary-color);
+
+  animation: ${Container_in} 0.6s ease-out;
 `;
 
 export default Container;
