@@ -44,6 +44,29 @@ export default function Email() {
     }
   };
 
+  const createPdf = async () => {
+    let template = document
+      .getElementById("template")
+      .outerHTML.replace("\n", " ");
+
+    try {
+      const pdfURL = await axios.post(
+        `https://e0hsgupb44.execute-api.ap-southeast-2.amazonaws.com/prod/puppeteer/pdf`,
+        { template }
+      );
+      console.log(pdfURL.data);
+      // show preview in a new tab
+      const newWindow = window.open(
+        pdfURL.data,
+        "_blank",
+        "noopener,noreferrer"
+      );
+      if (newWindow) newWindow.opener = null;
+    } catch (err) {
+      console.error("API Error", err);
+    }
+  };
+
   // to get the params (emailTemplate id and recordValueId) from URL
   const location = useLocation();
   useEffect(() => {
@@ -145,8 +168,11 @@ export default function Email() {
   return loading ? (
     <Spinner />
   ) : (
-    <EmailContainer>
-      <div dangerouslySetInnerHTML={{ __html: body }} />
-    </EmailContainer>
+    <>
+      <EmailContainer>
+        <div id="template" dangerouslySetInnerHTML={{ __html: body }} />
+      </EmailContainer>
+      <button onClick={() => createPdf()}>Preview</button>
+    </>
   );
 }
