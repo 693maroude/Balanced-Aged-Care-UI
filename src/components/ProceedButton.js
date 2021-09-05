@@ -1,9 +1,13 @@
 import React from "react";
 import { StyledProceedButton, ButtonSpan } from "./styles/Button";
 
-const Proceed = () => {
+const Proceed = ({ handleClick }) => {
   return (
-    <StyledProceedButton>
+    <StyledProceedButton
+      onClick={() => {
+        handleClick();
+      }}
+    >
       <ButtonSpan>Proceed</ButtonSpan>
     </StyledProceedButton>
   );
