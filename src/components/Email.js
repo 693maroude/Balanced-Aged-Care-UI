@@ -62,9 +62,27 @@ export default function Email() {
   };
 
   const createPdf = async () => {
+    const NameField =
+      document.getElementsByClassName("dynamic-entry")[0].children[1].value;
+
+    //Check whether the fields are empty
+    if (!document.getElementById("button-span") || !NameField) {
+      alert("fields missing");
+      return;
+    }
+
+    //set html attribute value for PDF
+    document
+      .getElementsByClassName("dynamic-entry")[0]
+      .children[1].setAttribute("value", NameField);
+
     setLoading(true);
     const url = "puppeteer";
     const id = "pdf";
+
+    //button removed for pdf
+    document.getElementById("button-span").remove();
+
     // getting HTML string from DOM node
     let template = document
       .getElementById("template")
@@ -148,7 +166,7 @@ export default function Email() {
         );
 
       const buttonSpan = document.createElement("span");
-      buttonSpan.style.position = "absolute";
+      buttonSpan.style.position = "relative";
       buttonSpan.style.right = "10px";
       buttonSpan.style.top = "-20px";
       buttonSpan.id = "button-span";
