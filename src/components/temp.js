@@ -194,12 +194,12 @@ a[x-apple-data-detectors='true'] {
   </div>
 
   <div style='padding-top: 30px; display: flex; justify-content: space-between; flex-flow:row nowrap'>
-    <span class='dynamic-entry' data-type='signature'>
+    <span class='dynamic-entry' data-type='signature' style='white-space: nowrap;'>
       <span class='dynamic-label'>Your Signature: </span> 
       <span style = 'position: relative'><input disabled class='dynamic-input' style = 'border:none; border-bottom: 1px solid black; background:none' /></span>
     </span>
 
-    <span class='dynamic-entry' data-type='date'>
+    <span class='dynamic-entry' data-type='date' style='white-space: nowrap;'>
       <span class='dynamic-label'>Date: </span> 
       <input disabled class='dynamic-input' style = 'outline-style: none; border:none; border-bottom: 1px solid #333; background:none' />  
     </span>

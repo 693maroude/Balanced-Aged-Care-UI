@@ -65,6 +65,9 @@ export default function Email() {
     setLoading(true);
     const url = "puppeteer";
     const id = "pdf";
+
+    document.getElementById("button-span").remove();
+
     // getting HTML string from DOM node
     let template = document
       .getElementById("template")
@@ -148,7 +151,7 @@ export default function Email() {
         );
 
       const buttonSpan = document.createElement("span");
-      buttonSpan.style.position = "absolute";
+      buttonSpan.style.position = "relative";
       buttonSpan.style.right = "10px";
       buttonSpan.style.top = "-20px";
       buttonSpan.id = "button-span";
