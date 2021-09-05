@@ -190,7 +190,7 @@ a[x-apple-data-detectors='true'] {
 <div class = "dynamic-container" style='display:flex; flex-direction: column; font-size:14px'>
   <div class='dynamic-entry' data-type='string'>
     <span class='dynamic-label'>Your Name: </span> 
-    <input disabled class='dynamic-input' style = 'outline-style: none; border:none; border-bottom: 1px solid black; background:none' />  
+    <input disabled class='dynamic-input' style = 'outline-style: none; border:none; border-bottom: 1px solid black; background:none'/>  
   </div>
 
   <div style='padding-top: 30px; display: flex; justify-content: space-between; flex-flow:row nowrap'>
@@ -201,7 +201,7 @@ a[x-apple-data-detectors='true'] {
 
     <span class='dynamic-entry' data-type='date' style='white-space: nowrap;'>
       <span class='dynamic-label'>Date: </span> 
-      <input disabled class='dynamic-input' style = 'outline-style: none; border:none; border-bottom: 1px solid #333; background:none' />  
+      <input disabled class='dynamic-input' style = 'outline-style: none; border:none; border-bottom: 1px solid #333; background:none'/>  
     </span>
   </div>
   

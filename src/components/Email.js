@@ -62,10 +62,25 @@ export default function Email() {
   };
 
   const createPdf = async () => {
+    const NameField =
+      document.getElementsByClassName("dynamic-entry")[0].children[1].value;
+
+    //Check whether the fields are empty
+    if (!document.getElementById("button-span") || !NameField) {
+      alert("fields missing");
+      return;
+    }
+
+    //set html attribute value for PDF
+    document
+      .getElementsByClassName("dynamic-entry")[0]
+      .children[1].setAttribute("value", NameField);
+
     setLoading(true);
     const url = "puppeteer";
     const id = "pdf";
 
+    //button removed for pdf
     document.getElementById("button-span").remove();
 
     // getting HTML string from DOM node
