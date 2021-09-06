@@ -2,8 +2,10 @@ import styled from "styled-components";
 import close from "../../assets/close.png";
 // import refresh from "../../assets/refresh.png";
 
-export const Button = styled.button`
-  padding: 0.25rem 0.5rem;
+export const Button = styled.button.attrs({
+  type: "button",
+})`
+  padding: 0.5rem 0.8rem;
   margin-inline-end: 10px;
   border: none;
   background-color: var(--primary-color);
@@ -31,7 +33,9 @@ export const Button = styled.button`
   }
 `;
 
-export const CloseButton = styled.button`
+export const CloseButton = styled.button.attrs({
+  type: "button",
+})`
   position: absolute;
   right: 20px;
   top: 18px;
@@ -57,7 +61,11 @@ export const CloseButton = styled.button`
   }
 `;
 
-export const RemoveButton = styled.button`
+export const RemoveButton = styled.button.attrs({
+  type: "button",
+})`
+  margin-left: auto;
+  position: relative;
   border-radius: 50%;
   border: none;
   background: url(${close});
@@ -69,10 +77,35 @@ export const RemoveButton = styled.button`
   cursor: pointer;
   transition: opacity 0.2s;
 
+  &::after {
+    content: "remove signature";
+    position: absolute;
+    opacity: 0;
+    top: 10px;
+    left: 25px;
+    padding: 5px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.2;
+    box-shadow: 2px 2px 6px -2px var(--secondary-color);
+    border-radius: 4px;
+    color: var(--primary-color);
+    background-color: var(--kalysys-blue);
+    transform: translateY(-50%);
+    transition-delay: 0s;
+  }
+
   :hover,
   :focus-visible {
     opacity: 100%;
     transform: scale(1.01);
+  }
+
+  &:hover {
+    ::after {
+      opacity: 0.9;
+      transition-delay: 0.5s;
+    }
   }
 
   :focus-visible {
@@ -80,7 +113,9 @@ export const RemoveButton = styled.button`
   }
 `;
 
-export const ListButton = styled.button`
+export const ListButton = styled.button.attrs({
+  type: "button",
+})`
   padding: 12px 14px;
   border: none;
   background-color: transparent;

@@ -4,7 +4,7 @@ import TextCanvas from "./TextCanvas";
 import { ModalBackground, ModalWrapper } from "./styles/Modal";
 import { Button, CloseButton, ListButton } from "./styles/Button";
 import List from "./styles/List";
-import Input from "./styles/Input";
+import { Input } from "./styles/Form";
 
 const Modal = ({ showModal, setShowModal, setSignature }) => {
   const sigPad = useRef({});

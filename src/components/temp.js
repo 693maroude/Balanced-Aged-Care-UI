@@ -183,30 +183,6 @@ a[x-apple-data-detectors='true'] {
 <li style="font-size: 14px; line-height: 19.6px;">Negotiations with Centrelink/DVA, Dept. Human Services, Dept. Social Services, Aged Care facility or Medicare</li>
 </ul>
 <p style="font-size: 14px; line-height: 140%;"><br />We will issue you with an invoice in relation to any fees you incur which will specify the payment terms.</p>
-
-
-<br>
-<br>
-<div class = "dynamic-container" style='display:flex; flex-direction: column; font-size:14px'>
-  <div class='dynamic-entry' data-type='string'>
-    <span class='dynamic-label'>Your Name: </span> 
-    <input disabled class='dynamic-input' style = 'outline-style: none; border:none; border-bottom: 1px solid black; background:none'/>  
-  </div>
-
-  <div style='padding-top: 30px; display: flex; justify-content: space-between; flex-flow:row nowrap'>
-    <span class='dynamic-entry' data-type='signature' style='white-space: nowrap;'>
-      <span class='dynamic-label'>Your Signature: </span> 
-      <span style = 'position: relative'><input disabled class='dynamic-input' style = 'border:none; border-bottom: 1px solid black; background:none' /></span>
-    </span>
-
-    <span class='dynamic-entry' data-type='date' style='white-space: nowrap;'>
-      <span class='dynamic-label'>Date: </span> 
-      <input disabled class='dynamic-input' style = 'outline-style: none; border:none; border-bottom: 1px solid #333; background:none'/>  
-    </span>
-  </div>
-  
-</div>
-<p style="font-size: 14px; line-height: 140%;"><br />Click here for the <a href="https://forms.kalysys.com.au/78b641b5-3cb4-4ba1-b39d-8637a9be682d/ef4f4185-36d8-4aef-93e2-6bd29ba5914a" target="_blank" rel="noopener">COVID</a> Safe online form.</p>
       </td>
     </tr>
   </tbody>
