@@ -66,7 +66,7 @@ export default function Email() {
       document.getElementsByClassName("dynamic-entry")[0].children[1].value;
 
     //Check whether the fields are empty
-    if (!document.getElementById("button-span") || !NameField) {
+    if (signature === "none" || !NameField) {
       alert("fields missing");
       return;
     }
