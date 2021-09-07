@@ -3,15 +3,13 @@ import React, { useState, useEffect } from "react";
 import EmailContainer from "./styles/EmailContainer";
 import Spinner from "./styles/Spinner";
 import Form from "./SignatureForm";
-import { HTML } from "./temp";
 import { useLocation, useHistory } from "react-router-dom";
 import qs from "query-string";
 import { getAPI, postAPI } from "../api/axios";
 import Handlebars from "handlebars";
 
 export default function Email() {
-  const [body /*, setBody*/] = useState(HTML);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [signature, setSignature] = useState("none");
   const [form, setForm] = useState({
     name: "",
@@ -30,8 +28,6 @@ export default function Email() {
 
   // get the HTML template + its corresponding dynamic values
   const getHTMLAndValues = async () => {
-    setLoading(true);
-
     // to get the params (emailTemplate id and recordValueId) from URL
     // URL --> /email?id=108976&&recordValueId=158765
     // templateId: 108976, recordId: 158765, 158238, 173202

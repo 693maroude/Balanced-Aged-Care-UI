@@ -1,5 +1,5 @@
 import React from "react";
-import StripeCheckout from "react-stripe-checkout";
+// import StripeCheckout from "react-stripe-checkout";
 import Container from "./styles/Container";
 import { Button, StyledProceedButton, ButtonSpan } from "./styles/Button";
 
@@ -35,14 +35,9 @@ const Payment = (props) => {
         Pin Payment
       </label>
       <br />
-      <StripeCheckout>
-        <StyledProceedButton>
-          <ButtonSpan>Confirm & Pay</ButtonSpan>
-        </StyledProceedButton>
-      </StripeCheckout>
-      {/* <StyledProceedButton onClick={() => previewPdf()}>
+      <StyledProceedButton onClick={() => previewPdf()}>
         <ButtonSpan>Pdf Preview</ButtonSpan>
-      </StyledProceedButton> */}
+      </StyledProceedButton>
     </Container>
   );
 };
