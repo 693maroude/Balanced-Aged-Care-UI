@@ -29,7 +29,7 @@ export default function Email() {
   // get the HTML template + its corresponding dynamic values
   const getHTMLAndValues = async () => {
     // to get the params (emailTemplate id and recordValueId) from URL
-    // URL --> /email?id=108976&&recordValueId=158765
+    // URL --> /email?id=173636&&recordValueId=158765
     // templateId: 108976, recordId: 158765, 158238, 173202
     const { id, recordValueId } = qs.parse(location.search);
     try {
@@ -97,6 +97,7 @@ export default function Email() {
         {resolvedHTML ? (
           <div
             id="template"
+            style={{ textAlign: "justify" }}
             dangerouslySetInnerHTML={{ __html: resolvedHTML }}
           />
         ) : null}

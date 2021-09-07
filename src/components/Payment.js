@@ -1,4 +1,5 @@
 import React from "react";
+import queryString from "query-string";
 // import StripeCheckout from "react-stripe-checkout";
 import Container from "./styles/Container";
 import { Button, StyledProceedButton, ButtonSpan } from "./styles/Button";
@@ -21,6 +22,23 @@ const Payment = (props) => {
     }
   };
 
+  const handlePayment = () => {
+    const queryParams = queryString.stringify({
+      amount: "10",
+      description: `Payment for Karun Kop`,
+      amount_editable: false,
+      success_url:
+        // process.env.NODE_ENV === "development" ?
+        //http://localhost:3000/payment/${attendanceReq.data.entry.id}`,
+        `http://localhost:8883/email?id=173636&&recordValueId=158765`,
+      email: "karun@kalysys.com",
+    });
+
+    console.log(queryParams);
+
+    window.location.href = `https://pay.pinpayments.com/riba/test?${queryParams}`;
+  };
+
   return (
     <Container>
       <h2>Payment Methods</h2>
@@ -35,8 +53,12 @@ const Payment = (props) => {
         Pin Payment
       </label>
       <br />
-      <StyledProceedButton onClick={() => previewPdf()}>
+      {/* <StyledProceedButton onClick={() => previewPdf()}>
         <ButtonSpan>Pdf Preview</ButtonSpan>
+      </StyledProceedButton>
+       */}
+      <StyledProceedButton onClick={() => handlePayment()}>
+        <ButtonSpan>Pay UP bitchh</ButtonSpan>
       </StyledProceedButton>
     </Container>
   );
