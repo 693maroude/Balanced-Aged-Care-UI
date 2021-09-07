@@ -1,11 +1,13 @@
-import React, { useState } from "react";
 import { StyledProceedButton, ButtonSpan } from "./styles/Button";
+import React, { useState, useEffect } from "react";
 import EmailContainer from "./styles/EmailContainer";
 import Spinner from "./styles/Spinner";
 import Form from "./SignatureForm";
 import { HTML } from "./temp";
-import { useHistory } from "react-router-dom";
-import { postAPI } from "../api/axios";
+import { useLocation, useHistory } from "react-router-dom";
+import qs from "query-string";
+import { getAPI, postAPI } from "../api/axios";
+import Handlebars from "handlebars";
 
 export default function Email() {
   const [body /*, setBody*/] = useState(HTML);
@@ -16,44 +18,47 @@ export default function Email() {
     date: "",
     err: "",
   });
+  // const [pdfLink, setPdfLink] = useState(null);
+  const [resolvedHTML, setResolvedHTML] = useState(null);
 
-  // const location = useLocation();
+  const location = useLocation();
   const history = useHistory();
 
-  // to get the params (emailTemplate id and recordValueId) from URL
+  useEffect(() => {
+    getHTMLAndValues();
+  }, []);
 
-  // useEffect(() => {
-  //   console.log(window.location.href);
-  //   console.log(location);
-  //   console.log(qs.parse(location.search));
+  // get the HTML template + its corresponding dynamic values
+  const getHTMLAndValues = async () => {
+    setLoading(true);
 
-  //   const { id, recordValueId } = qs.parse(location.search);
-  //   console.log(id, recordValueId);
-  // }, []);
+    // to get the params (emailTemplate id and recordValueId) from URL
+    // URL --> /email?id=108976&&recordValueId=158765
+    // templateId: 108976, recordId: 158765, 158238, 173202
+    const { id, recordValueId } = qs.parse(location.search);
+    try {
+      const HTML = await getAPI({ url: "getEmail", id });
+      const values = await getAPI({ url: "getAppointment", id: recordValueId });
+      console.log(HTML, values);
+      setLoading(false);
 
-  // const getBody = async () => {
-  //   try {
-  //     const res = await axios.get(
-  //       `https://1tz4y5lnl9.execute-api.ap-southeast-2.amazonaws.com/dev/getEmail/168909`
-  //     );
-  //     //setLoading(false);
-  //     console.log(res.data.body);
-  //   } catch (err) {
-  //     console.error("API Error", err);
-  //   }
-  // };
+      // dynamic values structure
+      // const data = {
+      //   "fee-schedule": {
+      //     "service-type": "Retirement Village",
+      //     "email-fee-pricing": "$990 or if paid on the day of appointment $880",
+      //   },
+      // };
 
-  // const getAppointmentValues = async () => {
-  //   try {
-  //     const res = await axios.get(
-  //       `https://1tz4y5lnl9.execute-api.ap-southeast-2.amazonaws.com/dev/getAppointment/158238`
-  //     );
-  //     //setLoading(false);
-  //     console.log(res.data);
-  //   } catch (err) {
-  //     console.error("API Error", err);
-  //   }
-  // };
+      const handleBarTemplate = Handlebars.compile(HTML);
+      const resolvedTemplate = handleBarTemplate(values).replace("\n", " ");
+      setResolvedHTML(resolvedTemplate);
+
+      console.log("resolvedHTML --> ", resolvedHTML);
+    } catch (err) {
+      console.error("API Error", err);
+    }
+  };
 
   const createPdf = async () => {
     //check input vlaues
@@ -93,13 +98,19 @@ export default function Email() {
   ) : (
     <>
       <EmailContainer>
-        <div id="template" dangerouslySetInnerHTML={{ __html: body }} />
+        {resolvedHTML ? (
+          <div
+            id="template"
+            dangerouslySetInnerHTML={{ __html: resolvedHTML }}
+          />
+        ) : null}
         <Form
           signature={signature}
           setSignature={setSignature}
           form={form}
           setForm={setForm}
         />
+
         <StyledProceedButton onClick={createPdf}>
           <ButtonSpan>Proceed</ButtonSpan>
         </StyledProceedButton>
