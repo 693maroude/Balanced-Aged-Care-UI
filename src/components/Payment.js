@@ -1,6 +1,7 @@
 import React from "react";
+// import StripeCheckout from "react-stripe-checkout";
 import Container from "./styles/Container";
-import { StyledProceedButton, ButtonSpan } from "./styles/Button";
+import { Button, StyledProceedButton, ButtonSpan } from "./styles/Button";
 
 const Payment = (props) => {
   let link;
@@ -23,6 +24,16 @@ const Payment = (props) => {
   return (
     <Container>
       <h2>Payment Methods</h2>
+      <br />
+      <label>
+        <input type="radio" name="payment" value="Wire Transfer" />
+        Wire Transfer
+      </label>
+      <br />
+      <label>
+        <input type="radio" name="payment" value="Pin Payment" />
+        Pin Payment
+      </label>
       <br />
       <StyledProceedButton onClick={() => previewPdf()}>
         <ButtonSpan>Pdf Preview</ButtonSpan>
