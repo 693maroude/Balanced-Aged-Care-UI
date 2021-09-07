@@ -7,7 +7,7 @@ import Spinner from "./styles/Spinner";
 import { Button, RemoveButton } from "./styles/Button";
 import { HTML } from "./temp";
 import { useLocation, useHistory } from "react-router-dom";
-import { qs } from "query-string";
+import qs from "query-string";
 import { getAPI, postAPI } from "../api/axios";
 import Handlebars from "handlebars";
 
@@ -19,7 +19,7 @@ export default function Email() {
   const [pdfLink, setPdfLink] = useState(null);
   const [resolvedHTML, setResolvedHTML] = useState(null);
 
-  // const location = useLocation();
+  const location = useLocation();
   const history = useHistory();
   const openModal = () => {
     setShowModal((prev) => !prev);
@@ -34,29 +34,25 @@ export default function Email() {
     setLoading(true);
 
     // to get the params (emailTemplate id and recordValueId) from URL
-
-    // console.log(window.location.href);
-    // console.log(location);
-    // console.log(qs.parse(location.search));
-
-    // const { id, recordValueId } = qs.parse(location.search);
-    // console.log(id, recordValueId);
+    // URL --> /email?id=108976&&recordValueId=158765
+    // templateId: 108976, recordId: 158765, 158238, 173202
+    const { id, recordValueId } = qs.parse(location.search);
     try {
-      const HTML = await getAPI({ url: "getEmail", id: 108976 });
-      const values = await getAPI({ url: "getAppointment", id: 158238 });
+      const HTML = await getAPI({ url: "getEmail", id });
+      const values = await getAPI({ url: "getAppointment", id: recordValueId });
       console.log(HTML, values);
       setLoading(false);
 
-      const data = {
-        fee: 1000,
-        "fee-schedule": {
-          "service-type": "Retirement Village",
-          "email-fee-pricing": "$990 or if paid on the day of appointment $880",
-        },
-      };
+      // dynamic values structure
+      // const data = {
+      //   "fee-schedule": {
+      //     "service-type": "Retirement Village",
+      //     "email-fee-pricing": "$990 or if paid on the day of appointment $880",
+      //   },
+      // };
 
       const handleBarTemplate = Handlebars.compile(HTML);
-      const resolvedTemplate = handleBarTemplate(data).replace("\n", " ");
+      const resolvedTemplate = handleBarTemplate(values).replace("\n", " ");
       setResolvedHTML(resolvedTemplate);
 
       console.log("resolvedHTML --> ", resolvedHTML);
