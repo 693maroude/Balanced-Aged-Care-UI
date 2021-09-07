@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Proceed from "./ProceedButton";
+import { StyledProceedButton, ButtonSpan } from "./styles/Button";
 import EmailContainer from "./styles/EmailContainer";
 import Spinner from "./styles/Spinner";
 import Form from "./SignatureForm";
@@ -100,7 +100,9 @@ export default function Email() {
           form={form}
           setForm={setForm}
         />
-        <Proceed handleClick={createPdf} />
+        <StyledProceedButton onClick={createPdf}>
+          <ButtonSpan>Proceed</ButtonSpan>
+        </StyledProceedButton>
       </EmailContainer>
     </>
   );

@@ -144,9 +144,9 @@ export const StyledProceedButton = styled(Button)`
   bottom: -75px;
   right: -10px;
   text-align: center;
-  padding: 14px 0px;
+  padding: 14px 20px;
   font-size: 18px;
-  width: 140px;
+  /* width: 140px; */
   background-color: var(--kalysys-blue);
   box-shadow: 2px 2px 6px -2px var(--secondary-color);
   border-radius: 4px;

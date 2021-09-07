@@ -15,7 +15,7 @@ const Container = styled.div`
   position: relative;
   height: auto;
   width: 780px;
-  padding-block: 60px;
+  padding: 60px;
   margin-inline: auto;
   margin-block: 50px 100px;
   background-color: #fff;
