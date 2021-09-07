@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { Link } from "react-router-dom";
 import Modal from "./Modal";
 import Proceed from "./ProceedButton";
 import EmailContainer from "./styles/EmailContainer";
@@ -10,8 +9,7 @@ import { HTML } from "./temp";
 import { useLocation, useHistory } from "react-router-dom";
 import { qs } from "query-string";
 import { getAPI, postAPI } from "../api/axios";
-
-import axios from "axios";
+import Handlebars from "handlebars";
 
 export default function Email() {
   const [body /*, setBody*/] = useState(HTML);
@@ -19,6 +17,7 @@ export default function Email() {
   const [signature, setSignature] = useState("none");
   const [showModal, setShowModal] = useState(false);
   const [pdfLink, setPdfLink] = useState(null);
+  const [resolvedHTML, setResolvedHTML] = useState(null);
 
   // const location = useLocation();
   const history = useHistory();
@@ -26,36 +25,41 @@ export default function Email() {
     setShowModal((prev) => !prev);
   };
 
-  // to get the params (emailTemplate id and recordValueId) from URL
+  useEffect(() => {
+    getHTMLAndValues();
+  }, []);
 
-  // useEffect(() => {
-  //   console.log(window.location.href);
-  //   console.log(location);
-  //   console.log(qs.parse(location.search));
+  // get the HTML template + its corresponding dynamic values
+  const getHTMLAndValues = async () => {
+    setLoading(true);
 
-  //   const { id, recordValueId } = qs.parse(location.search);
-  //   console.log(id, recordValueId);
-  // }, []);
+    // to get the params (emailTemplate id and recordValueId) from URL
 
-  const getBody = async () => {
+    // console.log(window.location.href);
+    // console.log(location);
+    // console.log(qs.parse(location.search));
+
+    // const { id, recordValueId } = qs.parse(location.search);
+    // console.log(id, recordValueId);
     try {
-      const res = await axios.get(
-        `https://1tz4y5lnl9.execute-api.ap-southeast-2.amazonaws.com/dev/getEmail/168909`
-      );
-      //setLoading(false);
-      console.log(res.data.body);
-    } catch (err) {
-      console.error("API Error", err);
-    }
-  };
+      const HTML = await getAPI({ url: "getEmail", id: 108976 });
+      const values = await getAPI({ url: "getAppointment", id: 158238 });
+      console.log(HTML, values);
+      setLoading(false);
 
-  const getAppointmentValues = async () => {
-    try {
-      const res = await axios.get(
-        `https://1tz4y5lnl9.execute-api.ap-southeast-2.amazonaws.com/dev/getAppointment/158238`
-      );
-      //setLoading(false);
-      console.log(res.data);
+      const data = {
+        fee: 1000,
+        "fee-schedule": {
+          "service-type": "Retirement Village",
+          "email-fee-pricing": "$990 or if paid on the day of appointment $880",
+        },
+      };
+
+      const handleBarTemplate = Handlebars.compile(HTML);
+      const resolvedTemplate = handleBarTemplate(data).replace("\n", " ");
+      setResolvedHTML(resolvedTemplate);
+
+      console.log("resolvedHTML --> ", resolvedHTML);
     } catch (err) {
       console.error("API Error", err);
     }
@@ -103,94 +107,100 @@ export default function Email() {
     }
   };
 
-  useEffect(() => {
-    if (loading === false) {
-      const entry = document.getElementsByClassName("dynamic-entry");
-      const signatureEntry = entry[1];
-      signatureEntry.children[1].style.display = "none";
+  // useEffect(() => {
+  //   if (loading === false) {
+  //     const entry = document.getElementsByClassName("dynamic-entry");
+  //     const signatureEntry = entry[1];
+  //     signatureEntry.children[1].style.display = "none";
 
-      const span = document.createElement("span");
-      span.id = "signature-span";
-      span.style.textAlign = "center";
-      span.style.paddingBlock = "10px";
-      span.style.borderRadius = "6px";
+  //     const span = document.createElement("span");
+  //     span.id = "signature-span";
+  //     span.style.textAlign = "center";
+  //     span.style.paddingBlock = "10px";
+  //     span.style.borderRadius = "6px";
 
-      signatureEntry.append(span);
+  //     signatureEntry.append(span);
 
-      Array.from(entry).forEach((node) => {
-        const type = node.getAttribute("data-type");
-        const inputNode = node.children[1];
-        if (type !== "signature") inputNode.disabled = false;
-      });
-    }
-  }, [loading]);
+  //     Array.from(entry).forEach((node) => {
+  //       const type = node.getAttribute("data-type");
+  //       const inputNode = node.children[1];
+  //       if (type !== "signature") inputNode.disabled = false;
+  //     });
+  //   }
+  // }, [loading]);
 
-  useEffect(() => {
-    if (loading) return;
+  // useEffect(() => {
+  //   if (loading) return;
 
-    if (signature === "none") {
-      ReactDOM.render(
-        <>
-          <Button onClick={openModal}>Create</Button>
-          <Modal
-            showModal={showModal}
-            setShowModal={setShowModal}
-            signature={signature}
-            setSignature={setSignature}
-          />
-        </>,
-        document.getElementById("signature-span")
-      );
-    } else {
-      const entry = document.getElementsByClassName("dynamic-entry");
-      const signatureEntry = entry[1];
-      signatureEntry.children[1].style.display = "inline";
-      signatureEntry.children[2].style.display = "none";
-      // signatureEntry.removeChild(signatureEntry.children[2]);
+  //   if (signature === "none") {
+  //     ReactDOM.render(
+  //       <>
+  //         <Button onClick={openModal}>Create</Button>
+  //         <Modal
+  //           showModal={showModal}
+  //           setShowModal={setShowModal}
+  //           signature={signature}
+  //           setSignature={setSignature}
+  //         />
+  //       </>,
+  //       document.getElementById("signature-span")
+  //     );
+  //   } else {
+  //     const entry = document.getElementsByClassName("dynamic-entry");
+  //     const signatureEntry = entry[1];
+  //     signatureEntry.children[1].style.display = "inline";
+  //     signatureEntry.children[2].style.display = "none";
+  //     // signatureEntry.removeChild(signatureEntry.children[2]);
 
-      const image = document.createElement("img");
-      image.src = "";
-      image.src = signature;
-      image.style.position = "absolute";
-      image.style.left = "1rem";
-      image.style.bottom = "0rem";
-      image.style.maxHeight = "45px";
-      image.style.maxWidth = "120px";
+  //     const image = document.createElement("img");
+  //     image.src = "";
+  //     image.src = signature;
+  //     image.style.position = "absolute";
+  //     image.style.left = "1rem";
+  //     image.style.bottom = "0rem";
+  //     image.style.maxHeight = "45px";
+  //     image.style.maxWidth = "120px";
 
-      if (signatureEntry.children[1].childElementCount === 1)
-        signatureEntry.children[1].append(image);
-      else
-        signatureEntry.children[1].replaceChildren(
-          signatureEntry.children[1].children[0],
-          image
-        );
+  //     if (signatureEntry.children[1].childElementCount === 1)
+  //       signatureEntry.children[1].append(image);
+  //     else
+  //       signatureEntry.children[1].replaceChildren(
+  //         signatureEntry.children[1].children[0],
+  //         image
+  //       );
 
-      const buttonSpan = document.createElement("span");
-      buttonSpan.style.position = "relative";
-      buttonSpan.style.right = "10px";
-      buttonSpan.style.top = "-20px";
-      buttonSpan.id = "button-span";
-      signatureEntry.children[1].append(buttonSpan);
+  //     const buttonSpan = document.createElement("span");
+  //     buttonSpan.style.position = "relative";
+  //     buttonSpan.style.right = "10px";
+  //     buttonSpan.style.top = "-20px";
+  //     buttonSpan.id = "button-span";
+  //     signatureEntry.children[1].append(buttonSpan);
 
-      ReactDOM.render(
-        <RemoveButton
-          onClick={() => {
-            signatureEntry.children[1].style.display = "none";
-            signatureEntry.children[2].style.display = "inline";
-            setSignature("none");
-          }}
-        />,
-        document.getElementById("button-span")
-      );
-    }
-  }, [signature, loading, showModal]);
+  //     ReactDOM.render(
+  //       <RemoveButton
+  //         onClick={() => {
+  //           signatureEntry.children[1].style.display = "none";
+  //           signatureEntry.children[2].style.display = "inline";
+  //           setSignature("none");
+  //         }}
+  //       />,
+  //       document.getElementById("button-span")
+  //     );
+  //   }
+  // }, [signature, loading, showModal]);
 
   return loading ? (
     <Spinner />
   ) : (
     <>
       <EmailContainer>
-        <div id="template" dangerouslySetInnerHTML={{ __html: body }} />
+        {resolvedHTML ? (
+          <div
+            id="template"
+            dangerouslySetInnerHTML={{ __html: resolvedHTML }}
+          />
+        ) : null}
+
         <Proceed handleClick={createPdf} />
       </EmailContainer>
     </>
