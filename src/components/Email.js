@@ -1,24 +1,24 @@
-import { StyledProceedButton, ButtonSpan } from "./styles/Button";
-import React, { useState, useEffect } from "react";
-import EmailContainer from "./styles/EmailContainer";
-import Spinner from "./styles/Spinner";
-import Form from "./SignatureForm";
 import { useLocation, useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import Handlebars from "handlebars";
 import qs from "query-string";
 import { getAPI, postAPI } from "../api/axios";
-import Handlebars from "handlebars";
+import Template from "./Template";
+import Spinner from "./styles/Spinner";
+import EmailContainer from "./styles/EmailContainer";
+import { StyledProceedButton, ButtonSpan } from "./styles/Button";
 
 export default function Email() {
   const [loading, setLoading] = useState(true);
   const [signature, setSignature] = useState("none");
   const [form, setForm] = useState({
     name: "",
-    date: "",
+    date: new Date().toISOString().substr(0, 10),
     err: "",
   });
   // const [pdfLink, setPdfLink] = useState(null);
   const [resolvedHTML, setResolvedHTML] = useState(null);
-
+  const [entryValues, setEntryValues] = useState("");
   const location = useLocation();
   const history = useHistory();
 
@@ -35,9 +35,7 @@ export default function Email() {
     try {
       const HTML = await getAPI({ url: "getEmail", id });
       const values = await getAPI({ url: "getAppointment", id: recordValueId });
-      console.log(HTML, values);
-      setLoading(false);
-
+      setEntryValues(values);
       // dynamic values structure
       // const data = {
       //   "fee-schedule": {
@@ -50,7 +48,7 @@ export default function Email() {
       const resolvedTemplate = handleBarTemplate(values).replace("\n", " ");
       setResolvedHTML(resolvedTemplate);
 
-      console.log("resolvedHTML --> ", resolvedHTML);
+      setLoading(false);
     } catch (err) {
       console.error("API Error", err);
     }
@@ -70,6 +68,9 @@ export default function Email() {
     const url = "puppeteer";
     const id = "pdf";
 
+    //remove signature button before sending
+    document.getElementById("remove-signature").remove();
+
     // getting HTML string from DOM node
     let template = document
       .getElementById("template")
@@ -78,11 +79,12 @@ export default function Email() {
     try {
       const pdfLink = await postAPI({ url, id, template });
       setLoading(false);
+      const description = entryValues["fee-schedule"]["service-type"];
 
       // open the payment url
       history.push({
         pathname: "/payment",
-        state: { pdfLink },
+        state: { pdfLink, description },
       });
     } catch (err) {
       console.log(err);
@@ -95,19 +97,14 @@ export default function Email() {
     <>
       <EmailContainer>
         {resolvedHTML ? (
-          <div
-            id="template"
-            style={{ textAlign: "justify" }}
-            dangerouslySetInnerHTML={{ __html: resolvedHTML }}
+          <Template
+            resolvedHTML={resolvedHTML}
+            signature={signature}
+            setSignature={setSignature}
+            form={form}
+            setForm={setForm}
           />
         ) : null}
-        <Form
-          signature={signature}
-          setSignature={setSignature}
-          form={form}
-          setForm={setForm}
-        />
-
         <StyledProceedButton onClick={createPdf}>
           <ButtonSpan>Proceed</ButtonSpan>
         </StyledProceedButton>

@@ -7,16 +7,18 @@ import Error from "./styles/Error";
 
 const SignatureForm = ({ form, setForm, signature, setSignature }) => {
   const [showModal, setShowModal] = useState(false);
-
   const toggleModal = () => {
     setShowModal((prev) => !prev);
   };
   return (
     <>
-      <Form>
-        <InputWrapper>
-          <Label htmlFor="name">Name:</Label>
-          <Input
+      <form style={Form}>
+        <div style={InputWrapper}>
+          <label htmlFor="name" style={Label}>
+            Name:
+          </label>
+          <input
+            style={Input}
             type="text"
             name="name"
             value={form.name}
@@ -25,10 +27,12 @@ const SignatureForm = ({ form, setForm, signature, setSignature }) => {
             }}
             autoComplete="off"
           />
-        </InputWrapper>
+        </div>
 
-        <InputWrapper>
-          <Label htmlFor="Signature">Signature:</Label>
+        <div style={InputWrapper}>
+          <label htmlFor="Signature" style={Label}>
+            Signature:
+          </label>
           {signature === "none" ? (
             <Button
               onClick={() => {
@@ -40,15 +44,22 @@ const SignatureForm = ({ form, setForm, signature, setSignature }) => {
             </Button>
           ) : (
             <SignatureContainer>
-              <Signature src={signature} />
-              <RemoveButton onClick={() => setSignature("none")} />
+              <img src={signature} style={Signature} alt={form.name} />
+              <RemoveButton
+                id="remove-signature"
+                title="Remove Signature"
+                onClick={() => setSignature("none")}
+              />
             </SignatureContainer>
           )}
-        </InputWrapper>
+        </div>
 
-        <InputWrapper>
-          <Label htmlFor="Date">Date:</Label>
-          <Input
+        <div style={InputWrapper}>
+          <label htmlFor="Date" style={Label}>
+            Date:
+          </label>
+          <input
+            style={Input}
             type="date"
             name="date"
             value={form.date}
@@ -60,8 +71,8 @@ const SignatureForm = ({ form, setForm, signature, setSignature }) => {
             }}
             autoComplete="off"
           />
-        </InputWrapper>
-      </Form>
+        </div>
+      </form>
       <Modal
         showModal={showModal}
         setShowModal={setShowModal}

@@ -77,35 +77,10 @@ export const RemoveButton = styled.button.attrs({
   cursor: pointer;
   transition: opacity 0.2s;
 
-  &::after {
-    content: "remove signature";
-    position: absolute;
-    opacity: 0;
-    top: 10px;
-    left: 25px;
-    padding: 5px;
-    text-align: center;
-    font-size: 12px;
-    line-height: 1.2;
-    box-shadow: 2px 2px 6px -2px var(--secondary-color);
-    border-radius: 4px;
-    color: var(--primary-color);
-    background-color: var(--kalysys-blue);
-    transform: translateY(-50%);
-    transition-delay: 0s;
-  }
-
   :hover,
   :focus-visible {
     opacity: 100%;
     transform: scale(1.01);
-  }
-
-  &:hover {
-    ::after {
-      opacity: 0.9;
-      transition-delay: 0.5s;
-    }
   }
 
   :focus-visible {
@@ -146,7 +121,6 @@ export const StyledProceedButton = styled(Button)`
   text-align: center;
   padding: 14px 20px;
   font-size: 18px;
-  /* width: 140px; */
   background-color: var(--kalysys-blue);
   box-shadow: 2px 2px 6px -2px var(--secondary-color);
   border-radius: 4px;
