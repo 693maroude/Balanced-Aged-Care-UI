@@ -1,10 +1,10 @@
 import styled from "styled-components";
 
-const Signature = styled.img`
-  max-height: 50px;
-  max-width: 200px;
-  margin: auto;
-`;
+const Signature = {
+  maxHeight: "50px",
+  maxWidth: "200px",
+  margin: "auto",
+};
 
 export const SignatureContainer = styled.div`
   border-bottom: 1px solid var(--secondary-color);

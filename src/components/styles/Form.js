@@ -1,30 +1,27 @@
-import styled from "styled-components";
+const Form = {
+  width: "320px",
+  fontSize: "14px",
+  display: "flex",
+  flexFlow: "column nowrap",
+  gap: "14px",
+};
 
-const Form = styled.form`
-  margin-inline-start: 150px;
-  width: 320px;
-  margin-block: 20px;
-  font-size: 14px;
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 14px;
-`;
+export const Label = {
+  alignSelf: "center",
+};
 
-export const Label = styled.label`
-  align-self: center;
-`;
+export const Input = {
+  outline: "none",
+  background: "transparent",
+  border: "none",
+  borderBottom: "1px solid #292929",
+  fontSize: "14px",
+  flex: "1 1 0",
+};
 
-export const Input = styled.input`
-  outline: none;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--secondary-color);
-  flex: 1 1 0;
-`;
-
-export const InputWrapper = styled.div`
-  display: flex;
-  gap: 10px;
-`;
+export const InputWrapper = {
+  display: "flex",
+  gap: "10px",
+};
 
 export default Form;

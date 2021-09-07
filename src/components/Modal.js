@@ -110,7 +110,8 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
                     flex: "row nowrap",
                   }}
                 >
-                  <Input
+                  <input
+                    style={Input}
                     type="text"
                     placeholder="Full Name"
                     value={inputValue}
