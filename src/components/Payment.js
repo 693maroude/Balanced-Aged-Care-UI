@@ -25,7 +25,7 @@ const Payment = ({ location }) => {
       amount_editable: false,
       success_url:
         process.env.NODE_ENV === "development"
-          ? `http://localhost:3000/success`
+          ? `http://localhost:12981/success`
           : `http://kalysys-bac.s3-website-ap-southeast-2.amazonaws.com/success`,
     });
 

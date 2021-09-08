@@ -29,7 +29,7 @@ export default function Email() {
   // get the HTML template + its corresponding dynamic values
   const getHTMLAndValues = async () => {
     // to get the params (emailTemplate id and recordValueId) from URL
-    // URL --> /email?id=173636&&recordValueId=158765
+    // URL --> /email?id=173636&recordValueId=158765
     // templateId: 108976, recordId: 158765, 158238, 173202
     const { id, recordValueId } = qs.parse(location.search);
     try {
@@ -66,8 +66,6 @@ export default function Email() {
     }
 
     setLoading(true);
-    const url = "puppeteer";
-    const id = "pdf";
 
     //remove signature button before sending
     document.getElementById("remove-signature").remove();
@@ -78,7 +76,10 @@ export default function Email() {
       .outerHTML.replace("\n", " ");
 
     try {
-      const pdfLink = await postAPI({ url, id, template });
+      // create the pdf
+      const pdfLink = await postAPI({ url: "puppeteer", id: "pdf", template });
+
+      // store the pdf as a file for the entry
       setLoading(false);
       const description = entryValues["fee-schedule"]["service-type"];
       const amount = entryValues["fee-schedule"]["feeAmount"];
