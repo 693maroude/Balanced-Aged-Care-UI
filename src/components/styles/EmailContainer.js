@@ -2,8 +2,8 @@ import styled, { keyframes } from "styled-components";
 
 const Email_in = keyframes`
   0% {
-      top: 100px;
-      opacity: 0;
+    top: 100px;
+    opacity: 0;
     }
   100% {
     top: 0;
