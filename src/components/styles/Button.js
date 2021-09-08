@@ -154,3 +154,23 @@ export const ButtonSpan = styled.span`
     right: -6px;
   }
 `;
+
+export const PayButton = styled(Button)`
+  position: relative;
+  align-self: center;
+  margin-inline: auto;
+  text-align: center;
+  padding: 14px 20px;
+  font-size: 18px;
+  background-color: var(--kalysys-blue);
+  box-shadow: 2px 2px 6px -2px var(--secondary-color);
+  border-radius: 4px;
+  opacity: 0.9;
+  cursor: pointer;
+`;
+
+export const ButtonSpan1 = styled.span`
+  cursor: pointer;
+  position: relative;
+  color: var(--primary-color);
+`;

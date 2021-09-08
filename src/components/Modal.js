@@ -25,7 +25,7 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
               aria-label="Close"
               onClick={() => setShowModal((prev) => !prev)}
             />
-            <List>
+            <List direction={"row"}>
               <li style={{ marginLeft: "auto" }}>
                 <ListButton
                   underlineColor={underlineColor.draw}

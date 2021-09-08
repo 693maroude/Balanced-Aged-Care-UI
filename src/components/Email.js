@@ -24,10 +24,11 @@ export default function Email() {
   const history = useHistory();
 
   useEffect(() => {
-    getHTMLAndValues();
+    getHTMLAndValues(); // eslint-disable-next-line
   }, []);
 
   // get the HTML template + its corresponding dynamic values
+
   const getHTMLAndValues = async () => {
     // to get the params (emailTemplate id and recordValueId) from URL
     // URL --> /email?id=173636&recordValueId=158765
@@ -87,7 +88,7 @@ export default function Email() {
       const res = await putAPI({
         url: "update-appointment",
         id: entryId,
-        s3result,
+        body: s3result,
       });
 
       console.log(res);
@@ -99,7 +100,7 @@ export default function Email() {
       // open the payment url
       history.push({
         pathname: "/payment",
-        state: { pdfLink, description, amount },
+        state: { pdfLink, description, amount, date: form.date, entryId },
       });
     } catch (err) {
       console.log(err);
