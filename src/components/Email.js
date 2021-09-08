@@ -84,7 +84,7 @@ export default function Email() {
 
       // update the appointment entry to store the pdf info
 
-      const res = await putAPI({
+      await putAPI({
         url: "update-appointment",
         id: entryId,
         body: s3result,
