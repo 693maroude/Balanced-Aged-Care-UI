@@ -14,15 +14,17 @@ export const getAPI = async ({ url, id }) => {
 
 export const postAPI = async ({ url, id, template }) => {
   try {
-    console.log(1);
-    const res = await axios.post(
-      `https://e0hsgupb44.execute-api.ap-southeast-2.amazonaws.com/prod/` +
-        `puppeteer/pdf`,
-      {
-        template,
-      }
-    );
+    const res = await axios.post(BASE_URL + `${url}/${id}`, { template });
+    return res.data;
+  } catch (err) {
+    return err;
+  }
+};
 
+export const putAPI = async ({ url, id, s3result }) => {
+  console.log(url, id, s3result);
+  try {
+    const res = await axios.put(BASE_URL + `${url}/${id}`, { s3result });
     console.log(res);
     return res.data;
   } catch (err) {
