@@ -41,6 +41,7 @@ export default function Email() {
       //   "fee-schedule": {
       //     "service-type": "Retirement Village",
       //     "email-fee-pricing": "$990 or if paid on the day of appointment $880",
+      //     "feeAmount": "990"
       //   },
       // };
 
@@ -55,7 +56,7 @@ export default function Email() {
   };
 
   const createPdf = async () => {
-    //check input vlaues
+    //check input values
     if (!form.name || signature === "none" || !form.date) {
       setForm({ ...form, err: "Missing required field" });
       setTimeout(() => {
@@ -80,11 +81,12 @@ export default function Email() {
       const pdfLink = await postAPI({ url, id, template });
       setLoading(false);
       const description = entryValues["fee-schedule"]["service-type"];
+      const amount = entryValues["fee-schedule"]["feeAmount"];
 
       // open the payment url
       history.push({
         pathname: "/payment",
-        state: { pdfLink, description },
+        state: { pdfLink, description, amount },
       });
     } catch (err) {
       console.log(err);

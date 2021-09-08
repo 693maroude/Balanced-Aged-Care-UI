@@ -5,33 +5,32 @@ import { StyledProceedButton, ButtonSpan } from "./styles/Button";
 
 const Payment = ({ location }) => {
   // preview the pdf in a new tab
-  const previewPdf = () => {
-    if (location) {
-      const newWindow = window.open(
-        location.state.pdfLink,
-        "_blank",
-        "noopener,noreferrer"
-      );
-      if (newWindow) newWindow.opener = null;
-    } else {
-      alert("Cannot show preview atm! :-(");
-    }
-  };
+  // const previewPdf = () => {
+  //   if (location) {
+  //     const newWindow = window.open(
+  //       location.state.pdfLink,
+  //       "_blank",
+  //       "noopener,noreferrer"
+  //     );
+  //     if (newWindow) newWindow.opener = null;
+  //   } else {
+  //     alert("Cannot show preview atm! :-(");
+  //   }
+  // };
 
   const handlePayment = () => {
     const queryParams = queryString.stringify({
-      amount: "100",
-      description: location ? location.state.description : "no description",
+      amount: location ? location.state.amount : "0",
+      description: location ? location.state.description : "No description",
       amount_editable: false,
       success_url:
-        // process.env.NODE_ENV === "development" ?
-        //http://localhost:3000/payment/${attendanceReq.data.entry.id}`,
-        `http://localhost:3000/success`,
+        process.env.NODE_ENV === "development"
+          ? `http://localhost:3000/success`
+          : `http://kalysys-bac.s3-website-ap-southeast-2.amazonaws.com/success`,
     });
 
-    console.log(queryParams);
-
-    window.location.href = `https://pay.pinpayments.com/riba/test?${queryParams}`;
+    window.location.href = `https://pay.pinpayments.com/rjzf/sc/test?${queryParams}`; // test link
+    // window.location.href = `https://pay.pinpayments.com/rjzf/sc?${queryParams}`; // live link
   };
 
   return (

@@ -1,7 +1,7 @@
 import Container from "./styles/Container";
 
 const Success = () => {
-  return <Container>Payment Success</Container>;
+  return <Container>Your Payment was successful</Container>;
 };
 
 export default Success;
