@@ -29,6 +29,11 @@ const GlobalStyle = createGlobalStyle`
       font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
         monospace;
     }
+
+    #root {
+      height: 100vh;
+      overflow-y: auto;
+    }
 `;
 
 export default GlobalStyle;
