@@ -22,15 +22,20 @@ const Payment = ({ location: { state } }) => {
   //   }
   // };
 
+  const onSuccess = () => {
+    const date = new Date().toISOString();
+    if (process.env.NODE_ENV === "development") {
+      return `http://localhost:3000/success?date=${date}&entryId=${state.entryId}`;
+    }
+    return `http://kalysys-bac.s3-website-ap-southeast-2.amazonaws.com/success?date=${date}&entryId=${state.entryId}`;
+  };
+
   const handlePayment = () => {
     const queryParams = queryString.stringify({
       amount: state.amount ? state.amount : "0",
       description: state.description ? state.description : "No description",
       amount_editable: false,
-      success_url:
-        process.env.NODE_ENV === "development"
-          ? `http://localhost:3000/success?date=${state.date}&entryId=${state.entryId}`
-          : `http://kalysys-bac.s3-website-ap-southeast-2.amazonaws.com/success`,
+      success_url: onSuccess(),
     });
 
     window.location.href = `https://pay.pinpayments.com/rjzf/sc/test?${queryParams}`; // test link

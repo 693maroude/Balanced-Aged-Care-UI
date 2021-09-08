@@ -32,7 +32,6 @@ export default function Email() {
   const getHTMLAndValues = async () => {
     // to get the params (emailTemplate id and recordValueId) from URL
     // URL --> /email?id=173636&recordValueId=158765
-    // templateId: 108976, recordId: 158765, 158238, 173202
     const { id, recordValueId } = qs.parse(location.search);
     setEntryId(recordValueId);
 
@@ -40,7 +39,7 @@ export default function Email() {
       const HTML = await getAPI({ url: "getEmail", id });
       const values = await getAPI({ url: "getAppointment", id: recordValueId });
       setEntryValues(values);
-      // dynamic values structure
+      // structure of the dynamic HTML values
       // const data = {
       //   "fee-schedule": {
       //     "service-type": "Retirement Village",
@@ -90,8 +89,6 @@ export default function Email() {
         id: entryId,
         body: s3result,
       });
-
-      console.log(res);
 
       setLoading(false);
       const description = entryValues["fee-schedule"]["service-type"];

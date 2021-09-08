@@ -4,7 +4,7 @@ import { putAPI } from "../api/axios";
 
 const Success = ({ location }) => {
   const updateEntryData = qs.parse(location.search);
-  console.log(updateEntryData);
+
   putAPI({
     url: "updateWithToken",
     id: updateEntryData.entryId,

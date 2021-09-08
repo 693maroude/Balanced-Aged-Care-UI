@@ -22,10 +22,8 @@ export const postAPI = async ({ url, id, template }) => {
 };
 
 export const putAPI = async ({ url, id, body }) => {
-  console.log(url, id, body);
   try {
     const res = await axios.put(BASE_URL + `${url}/${id}`, { body });
-    console.log(res);
     return res.data;
   } catch (err) {
     return err;
