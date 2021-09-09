@@ -159,6 +159,7 @@ export const PayButton = styled(Button)`
   position: relative;
   align-self: center;
   margin-inline: auto;
+  margin-block: 20px;
   text-align: center;
   padding: 14px 20px;
   font-size: 18px;

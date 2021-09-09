@@ -21,7 +21,11 @@ const Template = ({ resolvedHTML, signature, setSignature, form, setForm }) => {
   }, [signature, setSignature, form, setForm]);
 
   return (
-    <div id="template" dangerouslySetInnerHTML={{ __html: resolvedHTML }} />
+    <div
+      id="template"
+      dangerouslySetInnerHTML={{ __html: resolvedHTML }}
+      style={{ width: "100%" }}
+    />
   );
 };
 

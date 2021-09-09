@@ -12,7 +12,7 @@ const Success = ({ location }) => {
     body: updateEntryData,
   });
   return (
-    <Container svg={true} style={{ textAlign: "center" }}>
+    <Container style={{ textAlign: "center" }}>
       <SuccessSVG />
       <h2 style={{ textAlign: "center" }}>
         Payment was processed successfully

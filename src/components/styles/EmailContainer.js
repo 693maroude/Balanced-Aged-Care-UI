@@ -14,10 +14,12 @@ const Email_in = keyframes`
 const EmailContainer = styled.div`
   position: relative;
   height: auto;
-  width: 780px;
+  width: min(780px, 98vw);
+  min-width: 345px;
   padding-block: 60px;
   margin-inline: auto;
-  margin-block: 50px 100px;
+  margin-block-start: min(50px, 5vw);
+  margin-block-end: 100px;
   background-color: #fff;
   box-shadow: 3px 3px 10px -3px hsl(0, 0%, 100%),
     3px 3px 10px -3px var(--secondary-color);

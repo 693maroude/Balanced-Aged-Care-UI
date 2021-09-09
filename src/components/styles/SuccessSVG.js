@@ -68,8 +68,8 @@ const vector = keyframes`
 `;
 
 const SuccessSVG = styled(orderConfirmed)`
-  height: 400px;
-  width: 400px;
+  height: min(350px, 80vw);
+  width: min(400px, 80vw);
 
   #tick {
     stroke: var(--primary-color);
