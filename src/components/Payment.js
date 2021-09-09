@@ -1,7 +1,7 @@
 import React from "react";
 // import { useHistory } from "react-router-dom";
 import queryString from "query-string";
-import Container, { HR } from "./styles/Container";
+import Container, { PayContainer } from "./styles/Container";
 import { PayButton, ButtonSpan1 } from "./styles/Button";
 import List, { Em } from "./styles/List";
 
@@ -50,8 +50,8 @@ const Payment = ({ location: { state } }) => {
 
   return (
     <Container>
-      <div style={{ position: "relative", display: "flex" }}>
-        <div style={{ padding: "20px", paddingRight: "30px" }}>
+      <PayContainer>
+        <div style={{ paddingBlock: "20px" }}>
           <h3>Payment Details</h3>
           <List direction={"column"}>
             <li>
@@ -72,11 +72,11 @@ const Payment = ({ location: { state } }) => {
             </li>
           </List>
         </div>
-        <HR />
+        <hr style={{ marginInline: "2vw" }} />
         <PayButton onClick={() => handlePayment()}>
           <ButtonSpan1>Pay Online Now</ButtonSpan1>
         </PayButton>
-      </div>
+      </PayContainer>
     </Container>
   );
 };
