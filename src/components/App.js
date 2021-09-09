@@ -1,4 +1,4 @@
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import React from "react";
 import GlobalStyle from "./styles/GlobalStyle";
 import Email from "./Email";
@@ -15,6 +15,7 @@ const App = () => {
         <Route path="/pin-payment" component={PinPayment} />
         <Route path="/payment" component={Payment} />
         <Route path="/email" component={Email} />
+        <Route exact path="/" render={() => <Redirect to="/email" />} />
       </Switch>
     </>
   );
