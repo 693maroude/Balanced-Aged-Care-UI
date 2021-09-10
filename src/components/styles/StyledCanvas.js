@@ -7,6 +7,7 @@ const StyledCanvas = styled.canvas`
   margin-inline: auto;
   border-radius: 6px;
   display: block;
+  width: 100%;
 `;
 
 export default StyledCanvas;
