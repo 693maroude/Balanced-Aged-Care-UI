@@ -31,7 +31,7 @@ export default function Email() {
 
   const getHTMLAndValues = async () => {
     // to get the params (emailTemplate id and recordValueId) from URL
-    // URL --> /email?id=173636&recordValueId=174452
+    // URL --> /email?id=173636&recordValueId=158765
     const { id, recordValueId } = qs.parse(location.search);
     setEntryId(recordValueId);
 

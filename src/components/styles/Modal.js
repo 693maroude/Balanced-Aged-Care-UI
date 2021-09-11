@@ -26,9 +26,9 @@ const modal_in = keyframes`
 
 export const ModalWrapper = styled.div`
   position: absolute;
-  width: min(600px, 94vw);
-  padding-block-start: min(14vw, 50px);
-  padding-block-end: min(6vw, 50px);
+  width: 600px;
+  height: 440px;
+  padding-block: 50px;
   padding-inline: min(6vw, 55px);
   border: none;
   background-color: var(--primary-color);
@@ -38,27 +38,4 @@ export const ModalWrapper = styled.div`
   box-shadow: 2px 2px 10px -3px var(--secondary-color);
 
   animation: ${modal_in} 0.4s ease-in-out;
-`;
-
-export const InputButtonWrapper = styled.div`
-  display: flex;
-  gap: 10px;
-  margin-block: 20px;
-  flex-flow: row wrap;
-`;
-
-export const Input = styled.input`
-  outline: none;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid #292929;
-  font-size: 14px;
-  flex: 1 0 300px;
-`;
-
-export const ButtonWrapper = styled.div`
-  display: flex;
-  flex-grow: 1;
-  gap: 10px;
-  justify-content: center;
 `;
