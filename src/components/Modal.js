@@ -7,17 +7,17 @@ import {
   InputButtonWrapper,
   Input,
   ButtonWrapper,
-} from "./styles/Modal";
-import { Button, CloseButton, ListButton } from "./styles/Button";
-import List from "./styles/List";
+} from "../styles/Modal";
+import { Button, CloseButton, ListButton } from "../styles/Button";
+import List from "../styles/List";
 
 const Modal = ({ showModal, setShowModal, setSignature }) => {
   const sigPad = useRef({});
   const [underlineColor, setUnderlineColor] = useState({
-    draw: "var(--kalysys-blue)",
-    type: "transparent",
+    draw: "transparent",
+    type: "var(--kalysys-blue)",
   });
-  const [signatureMode, setSignatureMode] = useState("draw");
+  const [signatureMode, setSignatureMode] = useState("type");
   const [inputValue, setInputValue] = useState("");
   const [canvasText, setCanvasText] = useState("");
   return (
@@ -33,20 +33,6 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
             <List direction={"row"}>
               <li style={{ marginLeft: "auto" }}>
                 <ListButton
-                  underlineColor={underlineColor.draw}
-                  onClick={() => {
-                    setUnderlineColor({
-                      type: "transparent",
-                      draw: "var(--kalysys-blue)",
-                    });
-                    setSignatureMode("draw");
-                  }}
-                >
-                  Draw it in
-                </ListButton>
-              </li>
-              <li style={{ marginRight: "auto" }}>
-                <ListButton
                   underlineColor={underlineColor.type}
                   onClick={() => {
                     setUnderlineColor({
@@ -59,9 +45,60 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
                   Type it in
                 </ListButton>
               </li>
+
+              <li style={{ marginRight: "auto" }}>
+                <ListButton
+                  underlineColor={underlineColor.draw}
+                  onClick={() => {
+                    setUnderlineColor({
+                      type: "transparent",
+                      draw: "var(--kalysys-blue)",
+                    });
+                    setSignatureMode("draw");
+                  }}
+                >
+                  Draw it in
+                </ListButton>
+              </li>
             </List>
             <hr />
-            {signatureMode === "draw" ? (
+            {signatureMode === "type" ? (
+              <>
+                <InputButtonWrapper>
+                  <Input
+                    type="text"
+                    placeholder="Full Name"
+                    value={inputValue}
+                    onChange={({ target: { value } }) => setInputValue(value)}
+                    autoFocus
+                  />
+                  <ButtonWrapper>
+                    <Button
+                      onClick={() => {
+                        setCanvasText(inputValue);
+                      }}
+                    >
+                      Create
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        setCanvasText("");
+                      }}
+                    >
+                      Clear
+                    </Button>
+                  </ButtonWrapper>
+                </InputButtonWrapper>
+                <h6>Signature Preview: </h6>
+                <TextCanvas
+                  setShowModal={setShowModal}
+                  setSignature={setSignature}
+                  setInputValue={setInputValue}
+                  canvasText={canvasText}
+                  setCanvasText={setCanvasText}
+                />
+              </>
+            ) : (
               <>
                 <br />
                 <h6>Signature Preview: </h6>
@@ -103,41 +140,6 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
                 >
                   Insert
                 </Button>
-              </>
-            ) : (
-              <>
-                <InputButtonWrapper>
-                  <Input
-                    type="text"
-                    placeholder="Full Name"
-                    value={inputValue}
-                    onChange={({ target: { value } }) => setInputValue(value)}
-                  />
-                  <ButtonWrapper>
-                    <Button
-                      onClick={() => {
-                        setCanvasText(inputValue);
-                      }}
-                    >
-                      Create
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        setCanvasText("");
-                      }}
-                    >
-                      Clear
-                    </Button>
-                  </ButtonWrapper>
-                </InputButtonWrapper>
-                <h6>Signature Preview: </h6>
-                <TextCanvas
-                  setShowModal={setShowModal}
-                  setSignature={setSignature}
-                  setInputValue={setInputValue}
-                  canvasText={canvasText}
-                  setCanvasText={setCanvasText}
-                />
               </>
             )}
           </ModalWrapper>

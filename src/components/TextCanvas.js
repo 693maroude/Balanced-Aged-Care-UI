@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import trimCanvas from "trim-canvas";
-import StyledCanvas from "./styles/StyledCanvas";
-import { Button } from "./styles/Button";
+import StyledCanvas from "../styles/StyledCanvas";
+import { Button } from "../styles/Button";
 
 const TextCanvas = ({
   setShowModal,

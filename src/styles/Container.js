@@ -36,4 +36,14 @@ export const PayContainer = styled.div`
   }
 `;
 
+export const SuccessContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  gap: 20px;
+`;
+
 export default Container;

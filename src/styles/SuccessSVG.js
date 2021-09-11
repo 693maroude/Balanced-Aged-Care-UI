@@ -1,5 +1,5 @@
 import styled, { keyframes } from "styled-components";
-import { ReactComponent as orderConfirmed } from "../../assets/order_confirmed.svg";
+import { ReactComponent as orderConfirmed } from "../assets/order_confirmed.svg";
 
 const tick = keyframes`
 0% {
@@ -69,7 +69,8 @@ const vector = keyframes`
 
 const SuccessSVG = styled(orderConfirmed)`
   height: min(350px, 80vw);
-  width: min(400px, 80vw);
+  /* width: min(100%, 80vw); */
+  width: 90%;
 
   #tick {
     stroke: var(--primary-color);

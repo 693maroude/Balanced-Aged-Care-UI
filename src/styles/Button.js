@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import close from "../../assets/close.png";
-// import refresh from "../../assets/refresh.png";
+import close from "../assets/close.png";
 
 export const Button = styled.button.attrs({
   type: "button",

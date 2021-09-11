@@ -14,10 +14,10 @@ const Frame_in = keyframes`
 const FrameContainer = styled.div`
   position: relative;
   height: auto;
-  width: 440px;
+  width: min(440px, 96vw);
   margin-inline: auto;
-  margin-block: 50px;
-  padding-block: 40px 12px;
+  margin-block: 2vh;
+  padding-block: 2vh;
   text-align: center;
   background-color: #fff;
   box-shadow: 3px 3px 10px -3px hsl(0, 0%, 100%),

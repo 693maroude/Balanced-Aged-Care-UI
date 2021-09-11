@@ -1,33 +1,23 @@
-import React from "react";
-// import { useHistory } from "react-router-dom";
+import React, { useContext } from "react";
+import { useHistory } from "react-router-dom";
 import queryString from "query-string";
-import Container, { PayContainer } from "./styles/Container";
-import { PayButton, ButtonSpan1 } from "./styles/Button";
-import List, { Em } from "./styles/List";
+import { GlobalContext } from "../context/GlobalState";
+import Container, { PayContainer } from "../styles/Container";
+import { PayButton, ButtonSpan1 } from "../styles/Button";
+import List, { Em } from "../styles/List";
 
 const Payment = ({ location: { state } }) => {
-  // const history = useHistory();
+  const { EntryId } = useContext(GlobalContext);
+  const { entryId } = EntryId;
 
-  // preview the pdf in a new tab
-  // const previewPdf = () => {
-  //   if (location) {
-  //     const newWindow = window.open(
-  //       location.state.pdfLink,
-  //       "_blank",
-  //       "noopener,noreferrer"
-  //     );
-  //     if (newWindow) newWindow.opener = null;
-  //   } else {
-  //     alert("Cannot show preview atm! :-(");
-  //   }
-  // };
+  const history = useHistory();
 
   const onSuccess = () => {
     const date = new Date().toISOString();
     if (process.env.NODE_ENV === "development") {
-      return `http://localhost:3000/success?date=${date}&entryId=${state.entryId}`;
+      return `http://localhost:3000/success?date=${date}&entryId=${entryId}`;
     }
-    return `http://kalysys-bac.s3-website-ap-southeast-2.amazonaws.com/success?date=${date}&entryId=${state.entryId}`;
+    return `http://kalysys-bac.s3-website-ap-southeast-2.amazonaws.com/success?date=${date}&entryId=${entryId}`;
   };
 
   const handlePayment = () => {
@@ -38,14 +28,16 @@ const Payment = ({ location: { state } }) => {
       success_url: onSuccess(),
     });
 
-    window.location.href = `https://pay.pinpayments.com/rjzf/sc/test?${queryParams}`; // test link
+    // window.location.href = `https://pay.pinpayments.com/rjzf/sc/test?${queryParams}`; // test link
     // window.location.href = `https://pay.pinpayments.com/rjzf/sc?${queryParams}`; // live link
 
-    // const Link = `https://pay.pinpayments.com/rjzf/sc/test?${queryParams}`; // test link
-    // history.push({
-    //   pathname: "/pin-payment",
-    //   state: { Link },
-    // });
+    //rest of the process is carried out in iframe within the "pin-payment" component
+    //if user reloads on payment success route, pdf is not created twice, but user is directed to this.Link
+    const Link = `https://pay.pinpayments.com/rjzf/sc/test?${queryParams}`; // test link
+    history.push({
+      pathname: "/pin-payment",
+      state: { Link },
+    });
   };
 
   return (

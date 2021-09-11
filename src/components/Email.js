@@ -1,25 +1,25 @@
+import React, { useState, useEffect, useContext } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import React, { useState, useEffect } from "react";
 import Handlebars from "handlebars";
 import qs from "query-string";
-import { getAPI, postAPI, putAPI } from "../api/axios";
+import { GlobalContext } from "../context/GlobalState";
+import { getAPI } from "../api/axios";
 import Template from "./Template";
-import Spinner from "./styles/Spinner";
-import EmailContainer from "./styles/EmailContainer";
-import { StyledProceedButton, ButtonSpan } from "./styles/Button";
+import Spinner from "../styles/Spinner";
+import EmailContainer from "../styles/EmailContainer";
+import { StyledProceedButton, ButtonSpan } from "../styles/Button";
 
 export default function Email() {
+  const { ResolvedHTML, EntryValues, EntryId, FormValue } =
+    useContext(GlobalContext);
+  const [resolvedHTML, setResolvedHTML] = ResolvedHTML;
+  const { setEntryId } = EntryId;
+  const [entryValues, setEntryValues] = EntryValues;
+  const [form] = FormValue;
+
   const [loading, setLoading] = useState(true);
   const [signature, setSignature] = useState("none");
-  const [form, setForm] = useState({
-    name: "",
-    date: new Date().toISOString().substr(0, 10),
-    err: "",
-  });
-  // const [pdfLink, setPdfLink] = useState(null);
-  const [resolvedHTML, setResolvedHTML] = useState(null);
-  const [entryValues, setEntryValues] = useState("");
-  const [entryId, setEntryId] = useState(null);
+  const [err, setErr] = useState("none");
   const location = useLocation();
   const history = useHistory();
 
@@ -28,7 +28,6 @@ export default function Email() {
   }, []);
 
   // get the HTML template + its corresponding dynamic values
-
   const getHTMLAndValues = async () => {
     // to get the params (emailTemplate id and recordValueId) from URL
     // URL --> /email?id=173636&recordValueId=174452
@@ -58,50 +57,48 @@ export default function Email() {
     }
   };
 
-  const createPdf = async () => {
-    //check input values
-    if (!form.name || signature === "none" || !form.date) {
-      setForm({ ...form, err: "Missing required field" });
+  //error popup disappears after 1800ms
+  useEffect(() => {
+    if (err === "Missing required field")
       setTimeout(() => {
-        setForm({ ...form, err: "" });
+        setErr("none");
       }, 1800);
+  }, [err]);
+
+  const handleClick = () => {
+    // check input values
+    if (!form.name || signature === "none" || !form.date) {
+      setErr("Missing required field");
       return;
     }
-    setLoading(true);
 
-    //remove signature button before sending
-    document.getElementById("remove-signature").remove();
+    //get signature_form from DOM
+    const signature_form = document.getElementById("form-template").innerHTML;
 
-    // getting HTML string from DOM node
-    let template = document
-      .getElementById("template")
-      .outerHTML.replace("\n", " ");
+    //virtual DOM to remove "#signature-link" div
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = resolvedHTML;
+    tempDiv.querySelector("#signature-link").remove();
+    const TemplateString = tempDiv.outerHTML.replace("\n", " ");
 
-    try {
-      // create the pdf
-      const s3result = await postAPI({ url: "puppeteer", id: "pdf", template });
-      const pdfLink = s3result.Location;
+    //required html stored as string in the object
+    const pdfHTMLString = {
+      TemplateString: TemplateString,
+      SignatureFormString: signature_form,
+    };
 
-      // update the appointment entry to store the pdf info
+    //object stroed to localStorage to be accessed during pdf generation
+    localStorage.setItem("pdfHTMLString", JSON.stringify(pdfHTMLString));
 
-      await putAPI({
-        url: "update-appointment",
-        id: entryId,
-        body: s3result,
-      });
+    //values required for payment
+    const description = entryValues["fee-schedule"]["service-type"];
+    const amount = entryValues["fee-schedule"]["feeAmount"];
 
-      setLoading(false);
-      const description = entryValues["fee-schedule"]["service-type"];
-      const amount = entryValues["fee-schedule"]["feeAmount"];
-
-      // open the payment url
-      history.push({
-        pathname: "/payment",
-        state: { pdfLink, description, amount, date: form.date, entryId },
-      });
-    } catch (err) {
-      console.log(err);
-    }
+    // open the payment url
+    history.push({
+      pathname: "/payment",
+      state: { description, amount },
+    });
   };
 
   return loading ? (
@@ -111,14 +108,12 @@ export default function Email() {
       <EmailContainer>
         {resolvedHTML ? (
           <Template
-            resolvedHTML={resolvedHTML}
             signature={signature}
             setSignature={setSignature}
-            form={form}
-            setForm={setForm}
+            err={err}
           />
         ) : null}
-        <StyledProceedButton onClick={createPdf}>
+        <StyledProceedButton onClick={handleClick}>
           <ButtonSpan>Proceed</ButtonSpan>
         </StyledProceedButton>
       </EmailContainer>
