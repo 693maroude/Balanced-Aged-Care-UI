@@ -18,7 +18,6 @@ const Container = styled.div`
   padding: 4vw;
   margin-inline: auto;
   background-color: #fff;
-  border-radius: 6px;
   box-shadow: 3px 3px 10px -3px hsl(0, 0%, 100%),
     3px 3px 10px -3px var(--secondary-color);
 

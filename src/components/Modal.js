@@ -1,15 +1,10 @@
 import React, { useRef, useState } from "react";
 import SignatureCanvas from "react-signature-canvas";
 import TextCanvas from "./TextCanvas";
-import {
-  ModalBackground,
-  ModalWrapper,
-  InputButtonWrapper,
-  Input,
-  ButtonWrapper,
-} from "./styles/Modal";
+import { ModalBackground, ModalWrapper } from "./styles/Modal";
 import { Button, CloseButton, ListButton } from "./styles/Button";
 import List from "./styles/List";
+import { Input } from "./styles/Form";
 
 const Modal = ({ showModal, setShowModal, setSignature }) => {
   const sigPad = useRef({});
@@ -68,7 +63,7 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
                 <div
                   style={{
                     backgroundColor: "white",
-                    width: "100% ",
+                    width: "475px",
                     height: "150px",
                     marginBlockStart: "16px",
                     marginBlockEnd: "20px",
@@ -79,6 +74,8 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
                   <SignatureCanvas
                     ref={sigPad}
                     canvasProps={{
+                      width: 475,
+                      height: 150,
                       className: "sigCanvas",
                     }}
                   />
@@ -87,7 +84,6 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
                   onClick={() => {
                     sigPad.current.clear();
                   }}
-                  style={{ marginRight: "10px" }}
                 >
                   Clear
                 </Button>
@@ -106,30 +102,37 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
               </>
             ) : (
               <>
-                <InputButtonWrapper>
-                  <Input
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "8px",
+                    marginBlock: "10px",
+                    flex: "row nowrap",
+                  }}
+                >
+                  <input
+                    style={Input}
                     type="text"
                     placeholder="Full Name"
                     value={inputValue}
                     onChange={({ target: { value } }) => setInputValue(value)}
                   />
-                  <ButtonWrapper>
-                    <Button
-                      onClick={() => {
-                        setCanvasText(inputValue);
-                      }}
-                    >
-                      Create
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        setCanvasText("");
-                      }}
-                    >
-                      Clear
-                    </Button>
-                  </ButtonWrapper>
-                </InputButtonWrapper>
+                  <Button
+                    onClick={() => {
+                      setCanvasText(inputValue);
+                    }}
+                  >
+                    Create
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setCanvasText("");
+                    }}
+                  >
+                    Clear
+                  </Button>
+                </div>
+                <br />
                 <h6>Signature Preview: </h6>
                 <TextCanvas
                   setShowModal={setShowModal}

@@ -6,6 +6,7 @@ export const Button = styled.button.attrs({
   type: "button",
 })`
   padding: 0.5rem 0.8rem;
+  margin-inline-end: 10px;
   border: none;
   background-color: var(--primary-color);
   border-radius: 4px;
@@ -16,7 +17,6 @@ export const Button = styled.button.attrs({
   opacity: 76%;
   transition: opacity 0.2s;
   cursor: pointer;
-  text-align: center;
 
   :hover,
   :focus-visible {
