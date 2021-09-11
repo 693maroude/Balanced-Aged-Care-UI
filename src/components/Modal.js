@@ -105,7 +105,7 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
                 <div
                   style={{
                     backgroundColor: "white",
-                    width: "475px",
+                    width: "100%",
                     height: "150px",
                     marginBlockStart: "16px",
                     marginBlockEnd: "20px",
@@ -116,8 +116,6 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
                   <SignatureCanvas
                     ref={sigPad}
                     canvasProps={{
-                      width: 475,
-                      height: 150,
                       className: "sigCanvas",
                     }}
                   />
@@ -126,6 +124,7 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
                   onClick={() => {
                     sigPad.current.clear();
                   }}
+                  style={{ marginRight: "10px" }}
                 >
                   Clear
                 </Button>
