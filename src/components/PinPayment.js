@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import FrameContainer from "./styles/FrameContainer";
-import Spinner from "./styles/Spinner";
+import FrameContainer from "../styles/FrameContainer";
+import Spinner from "../styles/Spinner";
 
 const PinPayment = ({ location }) => {
   const [loading, setLoading] = useState(true);
   const [display, setDisplay] = useState("none");
+
   useEffect(() => {
     if (loading === false) setDisplay("block");
   }, [loading]);
@@ -19,8 +20,8 @@ const PinPayment = ({ location }) => {
           marginHeight="0"
           marginWidth="0"
           style={{
-            height: "1150px",
-            width: "400px",
+            height: "90vh",
+            width: "min(400px,94vw)",
           }}
           onLoad={() => setLoading(false)}
         />

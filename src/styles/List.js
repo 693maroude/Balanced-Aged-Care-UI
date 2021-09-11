@@ -12,7 +12,7 @@ const List = styled.ul`
 export const Em = styled.span`
   color: #0e9799;
   font-weight: bold;
-  font-family: Helvetica;
+  font-family: Helvetica, arial, sans-serif;
 `;
 
 export default List;

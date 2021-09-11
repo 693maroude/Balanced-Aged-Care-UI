@@ -1,14 +1,22 @@
 import React, { useState } from "react";
 import Modal from "./Modal";
-import { Button, RemoveButton } from "./styles/Button";
-import Form, { Label, Input, InputWrapper } from "./styles/Form";
-import Signature, { SignatureContainer } from "./styles/Signature";
-import Error from "./styles/Error";
+import { Button, RemoveButton } from "../styles/Button";
+import Form, { Label, Input, InputWrapper } from "../styles/Form";
+import Signature, { SignatureContainer } from "../styles/Signature";
+import Error from "../styles/Error";
 
-const SignatureForm = ({ form, setForm, signature, setSignature }) => {
+const SignatureForm = ({ signature, setSignature, form, setForm, err }) => {
   const [showModal, setShowModal] = useState(false);
   const toggleModal = () => {
     setShowModal((prev) => !prev);
+  };
+
+  const disableEnter = (e) => {
+    let keyCode = e.keyCode || e.which;
+    if (keyCode === 13) {
+      e.preventDefault();
+      return false;
+    }
   };
   return (
     <>
@@ -26,6 +34,7 @@ const SignatureForm = ({ form, setForm, signature, setSignature }) => {
               setForm({ ...form, [e.target.name]: e.target.value });
             }}
             autoComplete="off"
+            onKeyPress={disableEnter}
           />
         </div>
 
@@ -70,6 +79,7 @@ const SignatureForm = ({ form, setForm, signature, setSignature }) => {
               });
             }}
             autoComplete="off"
+            onKeyPress={disableEnter}
           />
         </div>
       </form>
@@ -78,7 +88,7 @@ const SignatureForm = ({ form, setForm, signature, setSignature }) => {
         setShowModal={setShowModal}
         setSignature={setSignature}
       />
-      {form.err ? <Error> &#10097; {form.err} !!!</Error> : null}
+      {err !== "none" ? <Error> &#10097; {err} !!!</Error> : null}
     </>
   );
 };

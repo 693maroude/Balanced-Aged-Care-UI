@@ -1,8 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import ReactDOM from "react-dom";
-import Form from "./SignatureForm";
+import { GlobalContext } from "../context/GlobalState";
+import SignatureForm from "./SignatureForm";
 
-const Template = ({ resolvedHTML, signature, setSignature, form, setForm }) => {
+const Template = ({ signature, setSignature, err }) => {
+  const { ResolvedHTML, FormValue } = useContext(GlobalContext);
+  const [resolvedHTML] = ResolvedHTML;
+  const [form, setForm] = FormValue;
+
   useEffect(() => {
     if (document.getElementById("signature-link"))
       document.getElementById("signature-link").remove();
@@ -10,18 +15,23 @@ const Template = ({ resolvedHTML, signature, setSignature, form, setForm }) => {
 
   useEffect(() => {
     ReactDOM.render(
-      <Form
+      <SignatureForm
         signature={signature}
         setSignature={setSignature}
         form={form}
         setForm={setForm}
+        err={err}
       />,
       document.getElementById("form-template")
     );
-  }, [signature, setSignature, form, setForm]);
+  }, [signature, setSignature, form, err, setForm]);
 
   return (
-    <div id="template" dangerouslySetInnerHTML={{ __html: resolvedHTML }} />
+    <div
+      id="template"
+      dangerouslySetInnerHTML={{ __html: resolvedHTML }}
+      style={{ width: "100%" }}
+    />
   );
 };
 

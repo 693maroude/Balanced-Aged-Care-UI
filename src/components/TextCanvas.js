@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import trimCanvas from "trim-canvas";
-import StyledCanvas from "./styles/StyledCanvas";
-import { Button } from "./styles/Button";
+import StyledCanvas from "../styles/StyledCanvas";
+import { Button } from "../styles/Button";
 
 const TextCanvas = ({
   setShowModal,
@@ -12,25 +12,24 @@ const TextCanvas = ({
 }) => {
   const canvasRef = useRef(null);
   const emptyCanvasRef = useRef(null);
+  const canvasHeight = 80;
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
-    context.font = "3rem Mr De Haviland";
+    context.font = "36px Mr De Haviland";
     context.textAlign = "center";
-    context.fillText(canvasText, canvas.width / 2, 75);
+    context.fillText(canvasText, canvas.width / 2, 65);
   }, [canvasText]);
 
   return (
     <>
-      <canvas
+      <StyledCanvas
         ref={emptyCanvasRef}
-        id="blank"
-        width="490"
-        height="100"
+        height={canvasHeight}
         style={{ display: "none" }}
       />
-      <StyledCanvas ref={canvasRef} width="490" height="100" />
+      <StyledCanvas ref={canvasRef} height={canvasHeight} />
       <Button
         onClick={() => {
           if (

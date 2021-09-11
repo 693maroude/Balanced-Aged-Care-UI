@@ -1,6 +1,6 @@
 import styled, { keyframes } from "styled-components";
 
-const Email_in = keyframes`
+const Frame_in = keyframes`
   0% {
       top: 100px;
       opacity: 0;
@@ -11,18 +11,19 @@ const Email_in = keyframes`
   }
 `;
 
-const EmailContainer = styled.div`
+const FrameContainer = styled.div`
   position: relative;
   height: auto;
-  width: 780px;
-  padding-block: 60px;
+  width: min(440px, 96vw);
   margin-inline: auto;
-  margin-block: 50px 100px;
+  margin-block: 2vh;
+  padding-block: 2vh;
+  text-align: center;
   background-color: #fff;
   box-shadow: 3px 3px 10px -3px hsl(0, 0%, 100%),
     3px 3px 10px -3px var(--secondary-color);
 
-  animation: ${Email_in} 0.6s ease-out;
+  animation: ${Frame_in} 0.6s ease-out;
 `;
 
-export default EmailContainer;
+export default FrameContainer;
