@@ -34,11 +34,6 @@ const GlobalStyle = createGlobalStyle`
       height: 100vh;
       overflow-y: auto;
     }
-
-    .sigCanvas {
-      width: 100%;
-      height: 100%;
-    }
 `;
 
 export default GlobalStyle;
