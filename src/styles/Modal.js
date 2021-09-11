@@ -39,3 +39,27 @@ export const ModalWrapper = styled.div`
 
   animation: ${modal_in} 0.4s ease-in-out;
 `;
+
+export const InputButtonWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-block: 20px;
+  flex-flow: row wrap;
+`;
+
+export const Input = styled.input`
+  outline: none;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #292929;
+  font-size: 14px;
+  flex: 1 0 300px;
+`;
+
+export const ButtonWrapper = styled.div`
+  display: flex;
+  flex-grow: 1;
+  gap: 10px;
+  justify-content: center;
+  // structure
+`;
