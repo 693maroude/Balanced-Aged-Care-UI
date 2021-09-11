@@ -61,5 +61,4 @@ export const ButtonWrapper = styled.div`
   flex-grow: 1;
   gap: 10px;
   justify-content: center;
-  // structure
 `;
