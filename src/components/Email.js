@@ -27,25 +27,18 @@ export default function Email() {
     getHTMLAndValues(); // eslint-disable-next-line
   }, []);
 
-  // get the HTML template + its corresponding dynamic values
   const getHTMLAndValues = async () => {
     // to get the params (emailTemplate id and recordValueId) from URL
-    // URL --> /email?id=173636&recordValueId=158765
-    const { id, recordValueId } = qs.parse(location.search);
-    setEntryId(recordValueId);
+    const { id, uuid } = qs.parse(location.search);
 
     try {
-      const HTML = await getAPI({ url: "getEmail", id });
-      const values = await getAPI({ url: "getAppointment", id: recordValueId });
+      const HTML = await getAPI({ url: "getEmail", id }); //get email template
+      const values = await getAPI({ url: "getAppointment", id: uuid }); // get appointment data
+      const {
+        "fee-schedule": { recordValueId },
+      } = values;
+      setEntryId(recordValueId);
       setEntryValues(values);
-      // structure of the dynamic HTML values
-      // const data = {
-      //   "fee-schedule": {
-      //     "service-type": "Retirement Village",
-      //     "email-fee-pricing": "$990 or if paid on the day of appointment $880",
-      //     "feeAmount": "990"
-      //   },
-      // };
 
       const handleBarTemplate = Handlebars.compile(HTML);
       const resolvedTemplate = handleBarTemplate(values).replace("\n", " ");
