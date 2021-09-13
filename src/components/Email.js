@@ -89,7 +89,7 @@ export default function Email() {
 
     // open the payment url
     history.push({
-      pathname: "/payment",
+      pathname: "/payment-methods",
       state: { description, amount },
     });
   };

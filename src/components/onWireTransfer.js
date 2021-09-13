@@ -1,6 +1,6 @@
 import { putAPI, postAPI } from "../api/axios";
 
-const createPdf = async (updateEntryData, toggleLoaderFalse) => {
+const onWireTransfer = async (entryId, toggleLoaderFalse) => {
   //get stored html as string
   const { TemplateString, SignatureFormString } = JSON.parse(
     localStorage.getItem("pdfHTMLString")
@@ -32,20 +32,13 @@ const createPdf = async (updateEntryData, toggleLoaderFalse) => {
     // update the appointment entry to store the pdf info
     await putAPI({
       url: "update-appointment",
-      id: updateEntryData.entryId,
+      id: entryId,
       body: s3result,
-    });
-
-    await putAPI({
-      url: "updateWithToken",
-      id: updateEntryData.entryId,
-      body: updateEntryData,
     });
   } catch (err) {
     console.log(err);
   }
-
   toggleLoaderFalse();
 };
 
-export default createPdf;
+export default onWireTransfer;

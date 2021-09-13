@@ -14,8 +14,8 @@ const Container_in = keyframes`
 const Container = styled.div`
   position: relative;
   height: auto;
-  width: min(780px, 94vw);
-  padding: 4vw;
+  width: min(580px, 94vw);
+  padding: max(36px, 4.4vw);
   margin-inline: auto;
   background-color: #fff;
   border-radius: 6px;
@@ -25,15 +25,6 @@ const Container = styled.div`
   top: 50%;
   transform: translateY(calc(-50% - 4vw));
   animation: ${Container_in} 0.6s ease-out;
-`;
-
-export const PayContainer = styled.div`
-  position: relative;
-  display: flex;
-
-  @media (max-width: 600px) {
-    flex-direction: column;
-  }
 `;
 
 export const SuccessContainer = styled.div`

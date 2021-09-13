@@ -3,8 +3,9 @@ import React from "react";
 import GlobalStateProvider from "./context/GlobalState";
 import GlobalStyle from "./styles/GlobalStyle";
 import Email from "./components/Email";
-import Payment from "./components/Payment";
+import PaymentMethods from "./components/PaymentMethods";
 import PinPayment from "./components/PinPayment";
+import WireTransfer from "./components/WireTransfer";
 import Success from "./components/Success";
 
 const App = () => {
@@ -15,7 +16,8 @@ const App = () => {
         <Switch>
           <Route path="/success" component={Success} />
           <Route path="/pin-payment" component={PinPayment} />
-          <Route path="/payment" component={Payment} />
+          <Route path="/wire-transfer" component={WireTransfer} />
+          <Route path="/payment-methods" component={PaymentMethods} />
           <Route path="/email" component={Email} />
         </Switch>
       </GlobalStateProvider>

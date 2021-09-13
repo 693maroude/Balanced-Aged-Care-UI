@@ -12,7 +12,7 @@ const TextCanvas = ({
 }) => {
   const canvasRef = useRef(null);
   const emptyCanvasRef = useRef(null);
-  const canvasHeight = 80;
+  const canvasHeight = "80";
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
@@ -24,7 +24,11 @@ const TextCanvas = ({
 
   return (
     <>
-      <StyledCanvas ref={emptyCanvasRef} style={{ display: "none" }} />
+      <StyledCanvas
+        height={canvasHeight}
+        ref={emptyCanvasRef}
+        style={{ display: "none" }}
+      />
       <StyledCanvas height={canvasHeight} ref={canvasRef} />
       <Button
         onClick={() => {
