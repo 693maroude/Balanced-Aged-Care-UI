@@ -116,7 +116,7 @@ export const ListButton = styled.button.attrs({
 export const StyledProceedButton = styled(Button)`
   position: absolute;
   bottom: -75px;
-  right: -10px;
+  right: 0;
   text-align: center;
   padding: 14px 20px;
   font-size: 18px;

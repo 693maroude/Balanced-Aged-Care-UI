@@ -3,7 +3,7 @@ import { SuccessContainer } from "../styles/Container";
 import qs from "query-string";
 import SuccessSVG from "../styles/SuccessSVG";
 import Spinner from "../styles/Spinner";
-import createPdf from "./createPdf";
+import onPinPayment from "./onPinPayment";
 
 const Success = ({ location }) => {
   const updateEntryData = qs.parse(location.search);
@@ -14,7 +14,7 @@ const Success = ({ location }) => {
   };
 
   useEffect(() => {
-    createPdf(updateEntryData, toggleLoaderFalse); // eslint-disable-next-line
+    onPinPayment(updateEntryData, toggleLoaderFalse); // eslint-disable-next-line
   }, []);
 
   return loading ? (
