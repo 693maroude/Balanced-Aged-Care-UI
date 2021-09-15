@@ -11,7 +11,7 @@ const WireTransfer = () => {
   const { EntryId } = useContext(GlobalContext);
   const { entryId } = EntryId;
 
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [errorFlag, setErrorFlag] = useState(false);
 
   const toggleLoaderFalse = () => {

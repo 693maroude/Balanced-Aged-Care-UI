@@ -12,7 +12,7 @@ const List = styled.ul`
 export const Em = styled.span`
   color: var(--kalysys-blue);
   font-weight: bold;
-  font-family: Helvetica, arial, sans-serif;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
   padding: 2px;
   text-align: left;
 `;

@@ -12,24 +12,27 @@ const TextCanvas = ({
 }) => {
   const canvasRef = useRef(null);
   const emptyCanvasRef = useRef(null);
-  const canvasHeight = "80";
+  const canvasHeight = "120";
+  const canvasWidth = "540";
   useEffect(() => {
     const canvas = canvasRef.current;
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
-    context.font = "36px Mr De Haviland";
+    context.font = "3.875rem Mr De Haviland";
     context.textAlign = "center";
-    context.fillText(canvasText, canvas.width / 2, 65);
+    context.fillText(canvasText, canvas.width / 2, canvas.height * 0.7);
+    canvas.style.width = canvas.width;
   }, [canvasText]);
 
   return (
     <>
       <StyledCanvas
         height={canvasHeight}
+        width={canvasWidth}
         ref={emptyCanvasRef}
         style={{ display: "none" }}
       />
-      <StyledCanvas height={canvasHeight} ref={canvasRef} />
+      <StyledCanvas height={canvasHeight} width={canvasWidth} ref={canvasRef} />
       <Button
         onClick={() => {
           if (
