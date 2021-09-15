@@ -130,7 +130,7 @@ const Modal = ({ showModal, setShowModal, setSignature }) => {
                 </Button>
                 <Button
                   onClick={() => {
-                    if (sigPad.current.isEmpty()) setSignature("none");
+                    if (sigPad.current.isEmpty()) setSignature(false);
                     else
                       setSignature(
                         sigPad.current.getTrimmedCanvas().toDataURL("image/png")

@@ -35,7 +35,7 @@ const TextCanvas = ({
           if (
             canvasRef.current.toDataURL() === emptyCanvasRef.current.toDataURL()
           ) {
-            setSignature("none");
+            setSignature(false);
           } else {
             setSignature(trimCanvas(canvasRef.current).toDataURL("image/png"));
           }

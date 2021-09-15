@@ -3,7 +3,7 @@ import Modal from "./Modal";
 import { Button, RemoveButton } from "../styles/Button";
 import Form, { Label, Input, InputWrapper } from "../styles/Form";
 import Signature, { SignatureContainer } from "../styles/Signature";
-import Error from "../styles/Error";
+import ErrorPopUp from "../styles/ErrorPopUp";
 
 const SignatureForm = ({ signature, setSignature, form, setForm, err }) => {
   const [showModal, setShowModal] = useState(false);
@@ -42,7 +42,7 @@ const SignatureForm = ({ signature, setSignature, form, setForm, err }) => {
           <label htmlFor="Signature" style={Label}>
             Signature:
           </label>
-          {signature === "none" ? (
+          {!signature ? (
             <Button
               onClick={() => {
                 toggleModal();
@@ -57,7 +57,7 @@ const SignatureForm = ({ signature, setSignature, form, setForm, err }) => {
               <RemoveButton
                 id="remove-signature"
                 title="Remove Signature"
-                onClick={() => setSignature("none")}
+                onClick={() => setSignature(false)}
               />
             </SignatureContainer>
           )}
@@ -88,7 +88,7 @@ const SignatureForm = ({ signature, setSignature, form, setForm, err }) => {
         setShowModal={setShowModal}
         setSignature={setSignature}
       />
-      {err !== "none" ? <Error> &#10097; {err} !!!</Error> : null}
+      {err ? <ErrorPopUp> &#10097; {err} !!!</ErrorPopUp> : null}
     </>
   );
 };

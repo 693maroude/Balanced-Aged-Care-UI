@@ -1,34 +1,29 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
-const modal_in = keyframes`
-  0% {
-    right: -350px;
-  }
-  10%{
-    right: 20px;
-  }
-  90%{
-    right: 20px;
-  }
-  100% {
-    right: -350px;
-  }
+export const ErrorContainer = styled.div`
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
 `;
 
-const Error = styled.div`
-  position: fixed;
-  top: 20%;
-  background-color: hsla(0, 100%, 85%, 0.95);
-  padding: 16px;
-  font-size: 14px;
-  color: hsla(0, 100%, 30%, 1);
-  box-shadow: 2px 2px 6px -2px var(--secondary-color);
-  border-radius: 4px;
-  border-bottom: 2px solid hsla(0, 100%, 30%, 1);
-  cursor: pointer;
-  opacity: 1;
-
-  animation: ${modal_in} 2s ease-out;
+export const ErrorStatus = styled.span`
+  flex: 3 1 0;
+  font-size: 5.875rem;
+  line-height: 1;
+  text-align: center;
 `;
-
-export default Error;
+export const ErrorMessage = styled.span`
+  flex: 5 0 0;
+  padding: 1rem;
+  color: var(--kalysys-blue);
+  font-size: 1.75rem;
+  font-weight: 600;
+  white-space: nowrap;
+  text-align: center;
+`;
+export const Message = styled.p`
+  text-align: center;
+  margin-block-start: 14px;
+  color: #949494;
+`;

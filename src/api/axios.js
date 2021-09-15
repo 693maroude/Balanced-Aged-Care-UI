@@ -8,7 +8,7 @@ export const getAPI = async ({ url, id }) => {
     const res = await axios.get(BASE_URL + `${url}/${id}`);
     return res.data;
   } catch (err) {
-    return err;
+    throw err;
   }
 };
 
@@ -17,7 +17,7 @@ export const postAPI = async ({ url, id, template }) => {
     const res = await axios.post(BASE_URL + `${url}/${id}`, { template });
     return res.data;
   } catch (err) {
-    return err;
+    throw err;
   }
 };
 
@@ -26,6 +26,6 @@ export const putAPI = async ({ url, id, body }) => {
     const res = await axios.put(BASE_URL + `${url}/${id}`, { body });
     return res.data;
   } catch (err) {
-    return err;
+    throw err;
   }
 };

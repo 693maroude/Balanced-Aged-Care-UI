@@ -10,6 +10,7 @@ const GlobalStateProvider = (props) => {
     name: "",
     date: new Date().toISOString().substr(0, 10),
   });
+  const [signature, setSignature] = useState(false);
 
   return (
     <GlobalContext.Provider
@@ -18,6 +19,7 @@ const GlobalStateProvider = (props) => {
         EntryValues: [entryValues, setEntryValues],
         EntryId: { entryId, setEntryId },
         FormValue: [form, setForm],
+        Signature: [signature, setSignature],
       }}
     >
       {props.children}

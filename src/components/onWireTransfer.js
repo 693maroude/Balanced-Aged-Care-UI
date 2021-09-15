@@ -1,6 +1,6 @@
 import { putAPI, postAPI } from "../api/axios";
 
-const onWireTransfer = async (entryId, toggleLoaderFalse) => {
+const onWireTransfer = async (entryId, toggleLoaderFalse, toggleErrorFlag) => {
   //get stored html as string
   const { TemplateString, SignatureFormString } = JSON.parse(
     localStorage.getItem("pdfHTMLString")
@@ -36,7 +36,7 @@ const onWireTransfer = async (entryId, toggleLoaderFalse) => {
       body: s3result,
     });
   } catch (err) {
-    console.log(err);
+    toggleErrorFlag();
   }
   toggleLoaderFalse();
 };
