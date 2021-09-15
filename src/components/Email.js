@@ -5,21 +5,23 @@ import qs from "query-string";
 import { GlobalContext } from "../context/GlobalState";
 import { getAPI } from "../api/axios";
 import Template from "./Template";
+import ErrorComponent from "./ErrorComponent";
 import Spinner from "../styles/Spinner";
 import EmailContainer from "../styles/EmailContainer";
 import { StyledProceedButton, ButtonSpan } from "../styles/Button";
 
 export default function Email() {
-  const { ResolvedHTML, EntryValues, EntryId, FormValue } =
+  const { ResolvedHTML, EntryValues, EntryId, FormValue, Signature } =
     useContext(GlobalContext);
   const [resolvedHTML, setResolvedHTML] = ResolvedHTML;
   const { setEntryId } = EntryId;
   const [entryValues, setEntryValues] = EntryValues;
   const [form] = FormValue;
+  const [signature, setSignature] = Signature;
 
   const [loading, setLoading] = useState(true);
-  const [signature, setSignature] = useState("none");
-  const [err, setErr] = useState("none");
+  const [errorFlag, setErrorFlag] = useState(false);
+  const [err, setErr] = useState(false);
   const location = useLocation();
   const history = useHistory();
 
@@ -46,7 +48,7 @@ export default function Email() {
 
       setLoading(false);
     } catch (err) {
-      console.error("API Error", err);
+      setErrorFlag(true);
     }
   };
 
@@ -54,13 +56,13 @@ export default function Email() {
   useEffect(() => {
     if (err === "Missing required field")
       setTimeout(() => {
-        setErr("none");
+        setErr(false);
       }, 1800);
   }, [err]);
 
   const handleClick = () => {
     // check input values
-    if (!form.name || signature === "none" || !form.date) {
+    if (!form.name || signature === false || !form.date) {
       setErr("Missing required field");
       return;
     }
@@ -94,22 +96,18 @@ export default function Email() {
     });
   };
 
-  return loading ? (
+  return errorFlag ? (
+    <ErrorComponent Status={404} StatusMessage={"Page not found"} />
+  ) : loading ? (
     <Spinner />
   ) : (
-    <>
-      <EmailContainer>
-        {resolvedHTML ? (
-          <Template
-            signature={signature}
-            setSignature={setSignature}
-            err={err}
-          />
-        ) : null}
-        <StyledProceedButton onClick={handleClick}>
-          <ButtonSpan>Proceed</ButtonSpan>
-        </StyledProceedButton>
-      </EmailContainer>
-    </>
+    <EmailContainer>
+      {resolvedHTML ? (
+        <Template signature={signature} setSignature={setSignature} err={err} />
+      ) : null}
+      <StyledProceedButton onClick={handleClick}>
+        <ButtonSpan>Proceed</ButtonSpan>
+      </StyledProceedButton>
+    </EmailContainer>
   );
 }

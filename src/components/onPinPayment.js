@@ -1,6 +1,10 @@
 import { putAPI, postAPI } from "../api/axios";
 
-const onPinPayment = async (updateEntryData, toggleLoaderFalse) => {
+const onPinPayment = async (
+  updateEntryData,
+  toggleLoaderFalse,
+  toggleErrorFlag
+) => {
   //get stored html as string
   const { TemplateString, SignatureFormString } = JSON.parse(
     localStorage.getItem("pdfHTMLString")
@@ -43,7 +47,7 @@ const onPinPayment = async (updateEntryData, toggleLoaderFalse) => {
       body: updateEntryData,
     });
   } catch (err) {
-    console.log(err);
+    toggleErrorFlag();
   }
 
   toggleLoaderFalse();
