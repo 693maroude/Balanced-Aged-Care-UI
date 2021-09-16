@@ -9,16 +9,15 @@ import ErrorComponent from "./ErrorComponent";
 import Spinner from "../styles/Spinner";
 import EmailContainer from "../styles/EmailContainer";
 import { StyledProceedButton, ButtonSpan } from "../styles/Button";
-
-import CreateHTML from "./CreateHTML";
+import createHTML from "./createHTML";
 import { putAPI, postAPI } from "../api/axios";
 
 export default function Email() {
   const { ResolvedHTML, EntryValues, EntryId, FormValue, Signature } =
     useContext(GlobalContext);
   const [resolvedHTML, setResolvedHTML] = ResolvedHTML;
-  const [entryId, setEntryId] = EntryId;
-  const [entryValues, setEntryValues] = EntryValues;
+  const { setEntryValues } = EntryValues;
+  const { entryId, setEntryId } = EntryId;
   const [form] = FormValue;
   const [signature, setSignature] = Signature;
 
@@ -27,6 +26,7 @@ export default function Email() {
   const [err, setErr] = useState(false);
   const location = useLocation();
   const [errorFlagType, setErrorFlagType] = useState(null);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -74,32 +74,16 @@ export default function Email() {
       return;
     }
 
-    const finalHTML = CreateHTML({ resolvedHTML });
+    const finalHTML = createHTML({ resolvedHTML });
 
-    finalHTML.querySelector("img").remove();
-    console.log(finalHTML);
-
-    //object stored to localStorage to be accessed during pdf generation
-    //localStorage.setItem("pdfHTMLString", JSON.stringify(pdfHTMLString));
-
-    //values required for payment
-    const description = entryValues["fee-schedule"]["service-type"];
-    const amount = entryValues["fee-schedule"]["feeAmount"];
-
-    // open the payment url
-    // history.push({
-    //   pathname: "/payment-methods",
-    //   state: { description, amount },
-    // });
     try {
-      // create the pdf
+      //create the pdf
 
       const s3result = await postAPI({
         url: "puppeteer",
         id: "pdf",
         template: finalHTML.outerHTML.replace("\n", " "),
       });
-      console.log(s3result);
 
       // update the appointment entry to store the pdf info
       await putAPI({
@@ -109,6 +93,11 @@ export default function Email() {
       });
 
       setLoading(false);
+
+      // open the payment url
+      history.push({
+        pathname: "/payment-methods",
+      });
     } catch (err) {
       setLoading(false);
       setErrorFlagType(500);

@@ -1,36 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
-import { GlobalContext } from "../context/GlobalState";
-import onWireTransfer from "./onWireTransfer";
-import ErrorComponent from "./ErrorComponent";
+import React from "react";
 import { Em } from "../styles/List";
 import List from "../styles/List";
-import Spinner from "../styles/Spinner";
 import Container from "../styles/Container";
 
 const WireTransfer = () => {
-  const { EntryId } = useContext(GlobalContext);
-  const { entryId } = EntryId;
-
-  const [loading, setLoading] = useState(true);
-  const [errorFlag, setErrorFlag] = useState(false);
-
-  const toggleLoaderFalse = () => {
-    setLoading(false);
-  };
-
-  const toggleErrorFlag = () => {
-    setErrorFlag(true);
-  };
-
-  useEffect(() => {
-    onWireTransfer(entryId, toggleLoaderFalse, toggleErrorFlag); // eslint-disable-next-line
-  }, []);
-
-  return errorFlag ? (
-    <ErrorComponent Status={500} StatusMessage={"Internal Server Error"} />
-  ) : loading ? (
-    <Spinner />
-  ) : (
+  return (
     <Container>
       <h3>Payment Details</h3>
       <hr style={{ marginBottom: "20px" }} />
