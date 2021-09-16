@@ -9,13 +9,15 @@ import ErrorComponent from "./ErrorComponent";
 import Spinner from "../styles/Spinner";
 import EmailContainer from "../styles/EmailContainer";
 import { StyledProceedButton, ButtonSpan } from "../styles/Button";
+import createHTML from "./createHTML";
+import { putAPI, postAPI } from "../api/axios";
 
 export default function Email() {
   const { ResolvedHTML, EntryValues, EntryId, FormValue, Signature } =
     useContext(GlobalContext);
   const [resolvedHTML, setResolvedHTML] = ResolvedHTML;
-  const { setEntryId } = EntryId;
-  const [entryValues, setEntryValues] = EntryValues;
+  const { setEntryValues } = EntryValues;
+  const { entryId, setEntryId } = EntryId;
   const [form] = FormValue;
   const [signature, setSignature] = Signature;
 
@@ -23,6 +25,8 @@ export default function Email() {
   const [errorFlag, setErrorFlag] = useState(false);
   const [err, setErr] = useState(false);
   const location = useLocation();
+  const [errorFlagType, setErrorFlagType] = useState(null);
+
   const history = useHistory();
 
   useEffect(() => {
@@ -60,44 +64,53 @@ export default function Email() {
       }, 1800);
   }, [err]);
 
-  const handleClick = () => {
+  // CREATE PDF ON PROCEED
+  const handleClick = async () => {
+    setLoading(true);
     // check input values
     if (!form.name || signature === false || !form.date) {
+      setLoading(false);
       setErr("Missing required field");
       return;
     }
 
-    //get signature_form from DOM
-    const signature_form = document.getElementById("form-template").innerHTML;
+    const finalHTML = createHTML({ resolvedHTML });
 
-    //virtual DOM to remove "#signature-link" div
-    const tempDiv = document.createElement("div");
-    tempDiv.innerHTML = resolvedHTML;
-    tempDiv.querySelector("#signature-link").remove();
-    const TemplateString = tempDiv.outerHTML.replace("\n", " ");
+    try {
+      //create the pdf
 
-    //required html stored as string in the object
-    const pdfHTMLString = {
-      TemplateString: TemplateString,
-      SignatureFormString: signature_form,
-    };
+      const s3result = await postAPI({
+        url: "puppeteer",
+        id: "pdf",
+        template: finalHTML.outerHTML.replace("\n", " "),
+      });
 
-    //object stroed to localStorage to be accessed during pdf generation
-    localStorage.setItem("pdfHTMLString", JSON.stringify(pdfHTMLString));
+      // update the appointment entry to store the pdf info
+      await putAPI({
+        url: "update-appointment",
+        id: entryId,
+        body: s3result,
+      });
 
-    //values required for payment
-    const description = entryValues["fee-schedule"]["service-type"];
-    const amount = entryValues["fee-schedule"]["feeAmount"];
+      setLoading(false);
 
-    // open the payment url
-    history.push({
-      pathname: "/payment-methods",
-      state: { description, amount },
-    });
+      // open the payment url
+      history.push({
+        pathname: "/payment-methods",
+      });
+    } catch (err) {
+      setLoading(false);
+      setErrorFlagType(500);
+      setErrorFlag(true);
+    }
   };
 
   return errorFlag ? (
-    <ErrorComponent Status={404} StatusMessage={"Page not found"} />
+    errorFlagType === 500 ? (
+      <ErrorComponent Status={500} StatusMessage={"Internal Server Error"} />
+    ) : (
+      <ErrorComponent Status={404} StatusMessage={"Page not found"} />
+    )
   ) : loading ? (
     <Spinner />
   ) : (

@@ -16,7 +16,7 @@ const GlobalStateProvider = (props) => {
     <GlobalContext.Provider
       value={{
         ResolvedHTML: [resolvedHTML, setResolvedHTML],
-        EntryValues: [entryValues, setEntryValues],
+        EntryValues: { entryValues, setEntryValues },
         EntryId: { entryId, setEntryId },
         FormValue: [form, setForm],
         Signature: [signature, setSignature],
