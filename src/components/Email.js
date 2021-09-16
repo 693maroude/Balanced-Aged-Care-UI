@@ -75,6 +75,8 @@ export default function Email() {
     }
 
     const finalHTML = CreateHTML({ resolvedHTML });
+
+    finalHTML.querySelector("img").remove();
     console.log(finalHTML);
 
     //object stored to localStorage to be accessed during pdf generation
@@ -95,8 +97,9 @@ export default function Email() {
       const s3result = await postAPI({
         url: "puppeteer",
         id: "pdf",
-        template: finalHTML,
+        template: finalHTML.outerHTML.replace("\n", " "),
       });
+      console.log(s3result);
 
       // update the appointment entry to store the pdf info
       await putAPI({
@@ -104,8 +107,6 @@ export default function Email() {
         id: entryId,
         body: s3result,
       });
-
-      console.log(s3result);
 
       setLoading(false);
     } catch (err) {

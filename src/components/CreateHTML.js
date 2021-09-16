@@ -27,7 +27,9 @@ const CreateHTML = ({ resolvedHTML }) => {
   //remove signature button before sending
   formContainer.querySelector("#remove-signature").remove();
 
-  return templateContainer.outerHTML.replace("\n", " ");
+  //return templateContainer.outerHTML.replace("\n", " ");
+
+  return templateContainer;
 };
 
 export default CreateHTML;
