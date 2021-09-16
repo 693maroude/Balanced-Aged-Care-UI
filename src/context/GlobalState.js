@@ -17,7 +17,7 @@ const GlobalStateProvider = (props) => {
       value={{
         ResolvedHTML: [resolvedHTML, setResolvedHTML],
         EntryValues: [entryValues, setEntryValues],
-        EntryId: { entryId, setEntryId },
+        EntryId: [entryId, setEntryId],
         FormValue: [form, setForm],
         Signature: [signature, setSignature],
       }}
