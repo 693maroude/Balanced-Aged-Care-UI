@@ -38,11 +38,21 @@ export default function Email() {
     const { id, uuid } = qs.parse(location.search);
 
     try {
-      const HTML = await getAPI({
+      const response = await getAPI({
         url: "getEmail",
         id,
         appointmentEntryId: uuid,
       }); //get email template
+
+      //if pdf and payment
+      if (response.flag.pdfExists) {
+        //redirect
+        history.push({
+          pathname: "/invalid-request",
+          state: { payFlag: response.flag.dateOfPaymentExists },
+        });
+        return;
+      }
 
       const values = await getAPI({ url: "getAppointment", id: uuid }); // get appointment data
       const {
@@ -51,7 +61,7 @@ export default function Email() {
       setEntryId(recordValueId);
       setEntryValues(values);
 
-      const handleBarTemplate = Handlebars.compile(HTML);
+      const handleBarTemplate = Handlebars.compile(response);
       const resolvedTemplate = handleBarTemplate(values).replace("\n", " ");
       setResolvedHTML(resolvedTemplate);
 

@@ -3,10 +3,14 @@ import Container from "../styles/Container";
 import DocumentSVG from "../styles/DocumentSVG";
 import { StyledProceedButton, ButtonSpan } from "../styles/Button";
 
-const InvalidRequest = () => {
+const InvalidRequest = ({
+  location: {
+    state: { payFlag },
+  },
+}) => {
   const history = useHistory();
 
-  const userPayment = false;
+  console.log(payFlag);
 
   const handleClick = () => {
     // open the payment url
@@ -21,7 +25,7 @@ const InvalidRequest = () => {
         This document has already been processed.
       </h3>
       <DocumentSVG />
-      {!userPayment ? (
+      {!payFlag ? (
         <StyledProceedButton onClick={handleClick}>
           <ButtonSpan>Proceed to Payment</ButtonSpan>
         </StyledProceedButton>

@@ -8,7 +8,6 @@ import {
 } from "../styles/Error";
 
 const ErrorComponent = ({ Status, StatusMessage }) => {
-  console.log("status", Status);
   return (
     <Container>
       <ErrorContainer>

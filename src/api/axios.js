@@ -8,7 +8,6 @@ export const getAPI = async ({ url, id, appointmentEntryId = null }) => {
     const res = await axios.get(
       BASE_URL + `${url}/${id}?appointmentEntryId=${appointmentEntryId}`
     );
-    console.log(res.data);
 
     return res.data;
   } catch (err) {
