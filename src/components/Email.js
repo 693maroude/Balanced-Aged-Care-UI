@@ -3,14 +3,13 @@ import { useLocation, useHistory } from "react-router-dom";
 import Handlebars from "handlebars";
 import qs from "query-string";
 import { GlobalContext } from "../context/GlobalState";
-import { getAPI } from "../api/axios";
+import { getAPI, putAPI, postAPI } from "../api/axios";
 import Template from "./Template";
 import ErrorComponent from "./ErrorComponent";
 import Spinner from "../styles/Spinner";
 import EmailContainer from "../styles/EmailContainer";
 import { StyledProceedButton, ButtonSpan } from "../styles/Button";
 import createHTML from "./createHTML";
-import { putAPI, postAPI } from "../api/axios";
 
 export default function Email() {
   const { ResolvedHTML, EntryValues, EntryId, FormValue, Signature } =
@@ -45,7 +44,11 @@ export default function Email() {
       }); //get email template
 
       //if pdf and payment
-      if (response.flag.pdfExists) {
+      if (
+        response.flag &&
+        response.flag.pdfExists &&
+        response.flag.dateOfPaymentExists
+      ) {
         //redirect
         history.push({
           pathname: "/invalid-request",
@@ -61,12 +64,22 @@ export default function Email() {
       setEntryId(recordValueId);
       setEntryValues(values);
 
+      if (response.flag && !response.flag.dateOfPaymentExists) {
+        //redirect
+        history.push({
+          pathname: "/invalid-request",
+          state: { payFlag: response.flag.dateOfPaymentExists },
+        });
+        return;
+      }
+
       const handleBarTemplate = Handlebars.compile(response);
       const resolvedTemplate = handleBarTemplate(values).replace("\n", " ");
       setResolvedHTML(resolvedTemplate);
 
       setLoading(false);
     } catch (err) {
+      console.log(err);
       setErrorFlag(true);
     }
   };

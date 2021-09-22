@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useHistory } from "react-router-dom";
+import { GlobalContext } from "../context/GlobalState";
+import { getAPI } from "../api/axios";
 import Container from "../styles/Container";
 import { StyledProceedButton, ButtonSpan } from "../styles/Button";
 import {
@@ -8,13 +10,36 @@ import {
   RadioInput,
   RadioSpan,
 } from "../styles/Radio";
+import Spinner from "../styles/Spinner";
 import ErrorPopUp from "../styles/ErrorPopUp";
 
 const PaymentMethods = () => {
+  const { EntryId } = useContext(GlobalContext);
+  const { entryId } = EntryId;
+
   const [err, setErr] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("");
+  const [payOnline, setPayOnline] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const history = useHistory();
+
+  useEffect(() => {
+    const getAppointmentDiff = async () => {
+      if (!entryId) {
+        history.go(-2);
+        return;
+      }
+
+      const { payOnline } = await getAPI({
+        url: "calculateAppointmentDiff",
+        entryId,
+      });
+      setPayOnline(payOnline);
+      setLoading(false);
+    };
+    getAppointmentDiff();
+  }, [entryId, history]);
 
   const handlePayment = () => {
     // check input values
@@ -36,7 +61,9 @@ const PaymentMethods = () => {
       }, 1800);
   }, [err]);
 
-  return (
+  return loading ? (
+    <Spinner />
+  ) : (
     <>
       <Container Pay={true}>
         <h3>How would you like to pay?</h3>
@@ -53,13 +80,14 @@ const PaymentMethods = () => {
             <RadioSpan />
             In person by cash/cheque or by Internet Bank Transfer
           </RadioLabel>
-          <RadioLabel htmlFor="pay_online">
+          <RadioLabel htmlFor="pay_online" Disabled={!payOnline}>
             <RadioInput
               id="pay_online"
               name="payment_method"
               onChange={(e) => setPaymentMethod(e.target.value)}
               value="pay_online"
               checked={paymentMethod === "pay_online"}
+              disabled={!payOnline}
             />
             <RadioSpan />
             Pay by card online now
@@ -69,7 +97,7 @@ const PaymentMethods = () => {
           <ButtonSpan>Make Payment</ButtonSpan>
         </StyledProceedButton>
       </Container>
-      {err ? <ErrorPopUp> &#10097; {err} !!!</ErrorPopUp> : null}
+      {err ? <ErrorPopUp> &#10097; {err} !!!</ErrorPopUp> : null};
     </>
   );
 };

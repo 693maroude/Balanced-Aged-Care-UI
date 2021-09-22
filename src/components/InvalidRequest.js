@@ -10,8 +10,6 @@ const InvalidRequest = ({
 }) => {
   const history = useHistory();
 
-  console.log(payFlag);
-
   const handleClick = () => {
     // open the payment url
     history.push({

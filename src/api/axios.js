@@ -3,12 +3,20 @@ import axios from "axios";
 const BASE_URL =
   "https://e0hsgupb44.execute-api.ap-southeast-2.amazonaws.com/prod/";
 
-export const getAPI = async ({ url, id, appointmentEntryId = null }) => {
+export const getAPI = async ({
+  url,
+  id,
+  appointmentEntryId = null,
+  entryId = null,
+}) => {
   try {
+    if (url === "calculateAppointmentDiff") {
+      const res = await axios.get(BASE_URL + `${url}/${entryId}`);
+      return res.data;
+    }
     const res = await axios.get(
       BASE_URL + `${url}/${id}?appointmentEntryId=${appointmentEntryId}`
     );
-
     return res.data;
   } catch (err) {
     throw err;

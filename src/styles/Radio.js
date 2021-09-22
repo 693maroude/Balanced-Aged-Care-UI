@@ -13,6 +13,7 @@ export const RadioLabel = styled.label`
   cursor: pointer;
   margin-right: auto;
   font-size: 1.2rem;
+  cursor: ${({ Disabled }) => (Disabled ? "not-allowed" : "pointer")};
 `;
 
 export const RadioInput = styled.input.attrs({
