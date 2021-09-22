@@ -25,7 +25,7 @@ const PaymentMethods = () => {
     if (paymentMethod === "pay_online")
       history.push({ pathname: "/pin-payment" });
     else if (paymentMethod === "wire_transfer")
-      history.push({ pathname: "/wire-transfer" });
+      history.push({ pathname: "/payment-details" });
   };
 
   //error popup disappears after 1800ms
@@ -38,7 +38,7 @@ const PaymentMethods = () => {
 
   return (
     <>
-      <Container>
+      <Container Pay={true}>
         <h3>How would you like to pay?</h3>
         <hr />
         <RadioContainer>
@@ -51,7 +51,7 @@ const PaymentMethods = () => {
               checked={paymentMethod === "wire_transfer"}
             />
             <RadioSpan />
-            Via WireTransfer
+            In person by cash/cheque or by Internet Bank Transfer
           </RadioLabel>
           <RadioLabel htmlFor="pay_online">
             <RadioInput
@@ -62,7 +62,7 @@ const PaymentMethods = () => {
               checked={paymentMethod === "pay_online"}
             />
             <RadioSpan />
-            Pay Online Now
+            Pay by card online now
           </RadioLabel>
         </RadioContainer>
         <StyledProceedButton onClick={handlePayment}>

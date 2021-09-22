@@ -69,7 +69,6 @@ const vector = keyframes`
 
 const SuccessSVG = styled(orderConfirmed)`
   height: min(350px, 80vw);
-  /* width: min(100%, 80vw); */
   width: 90%;
 
   #tick {

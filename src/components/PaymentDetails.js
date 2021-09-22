@@ -3,7 +3,7 @@ import { Em } from "../styles/List";
 import List from "../styles/List";
 import Container from "../styles/Container";
 
-const WireTransfer = () => {
+const PaymentDetails = () => {
   return (
     <Container>
       <h3>Payment Details</h3>
@@ -30,4 +30,4 @@ const WireTransfer = () => {
   );
 };
 
-export default WireTransfer;
+export default PaymentDetails;

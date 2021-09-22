@@ -8,11 +8,14 @@ import {
 } from "../styles/Error";
 
 const ErrorComponent = ({ Status, StatusMessage }) => {
+  console.log("status", Status);
   return (
     <Container>
       <ErrorContainer>
-        <ErrorStatus>{Status}</ErrorStatus>
-        <ErrorMessage>{StatusMessage}</ErrorMessage>
+        <ErrorStatus>{Status ? Status : "404"}</ErrorStatus>
+        <ErrorMessage>
+          {StatusMessage ? StatusMessage : "Invalid Request"}
+        </ErrorMessage>
       </ErrorContainer>
 
       <Message>Please contact your system administrator</Message>

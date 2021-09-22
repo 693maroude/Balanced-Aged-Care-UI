@@ -14,8 +14,8 @@ const Container_in = keyframes`
 const Container = styled.div`
   position: relative;
   height: auto;
-  width: min(580px, 94vw);
-  padding: max(36px, 4.4vw);
+  width: ${({ Pay }) => (Pay ? "min(700px, 94vw)" : "min(600px, 94vw)")};
+  padding: max(36px, min(4.4vw, 66px));
   margin-inline: auto;
   background-color: #fff;
   border-radius: 6px;
