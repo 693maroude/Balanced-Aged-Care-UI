@@ -3,9 +3,13 @@ import axios from "axios";
 const BASE_URL =
   "https://e0hsgupb44.execute-api.ap-southeast-2.amazonaws.com/prod/";
 
-export const getAPI = async ({ url, id }) => {
+export const getAPI = async ({ url, id, appointmentEntryId = null }) => {
   try {
-    const res = await axios.get(BASE_URL + `${url}/${id}`);
+    const res = await axios.get(
+      BASE_URL + `${url}/${id}?appointmentEntryId=${appointmentEntryId}`
+    );
+    console.log(res.data);
+
     return res.data;
   } catch (err) {
     throw err;

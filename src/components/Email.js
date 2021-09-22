@@ -38,7 +38,12 @@ export default function Email() {
     const { id, uuid } = qs.parse(location.search);
 
     try {
-      const HTML = await getAPI({ url: "getEmail", id }); //get email template
+      const HTML = await getAPI({
+        url: "getEmail",
+        id,
+        appointmentEntryId: uuid,
+      }); //get email template
+
       const values = await getAPI({ url: "getAppointment", id: uuid }); // get appointment data
       const {
         "fee-schedule": { recordValueId },
