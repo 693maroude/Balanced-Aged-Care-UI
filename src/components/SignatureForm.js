@@ -3,6 +3,7 @@ import Modal from "./Modal";
 import { Button, RemoveButton } from "../styles/Button";
 import Form, { Label, Input, InputWrapper } from "../styles/Form";
 import Signature, { SignatureContainer } from "../styles/Signature";
+import { StyledRequiredIcon } from "../styles/Icons";
 import ErrorPopUp from "../styles/ErrorPopUp";
 
 const SignatureForm = ({ signature, setSignature, form, setForm, err }) => {
@@ -24,6 +25,7 @@ const SignatureForm = ({ signature, setSignature, form, setForm, err }) => {
         <div style={InputWrapper}>
           <label htmlFor="name" style={Label}>
             Name:
+            <StyledRequiredIcon className={"fas fa-asterisk"} />
           </label>
           <input
             style={Input}
@@ -41,6 +43,7 @@ const SignatureForm = ({ signature, setSignature, form, setForm, err }) => {
         <div style={InputWrapper}>
           <label htmlFor="Signature" style={Label}>
             Signature:
+            <StyledRequiredIcon className={"fas fa-asterisk"} />
           </label>
           {!signature ? (
             <Button
@@ -66,6 +69,7 @@ const SignatureForm = ({ signature, setSignature, form, setForm, err }) => {
         <div style={InputWrapper}>
           <label htmlFor="Date" style={Label}>
             Date:
+            <StyledRequiredIcon className={"fas fa-asterisk"} />
           </label>
           <input
             style={Input}
