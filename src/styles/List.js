@@ -9,12 +9,4 @@ const List = styled.ul`
   font-size: 1rem;
 `;
 
-export const Em = styled.span`
-  color: var(--kalysys-blue);
-  font-weight: bold;
-  font-family: Verdana, Arial, Helvetica, sans-serif;
-  padding: 2px;
-  text-align: left;
-`;
-
 export default List;
