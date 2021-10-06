@@ -32,7 +32,7 @@ const PinPayment = () => {
         success_url: `${window.origin}/success?date=${date}&entryId=${entryId}`,
       });
 
-      setPayLink(`https://pay.pinpayments.com/rjzf/sc/test?${queryParams}`);
+      setPayLink(`https://pay.pinpayments.com/rjzf/sc?${queryParams}`);
     }, // eslint-disable-next-line
     []
   );
