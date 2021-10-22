@@ -10,7 +10,7 @@ export const getAPI = async ({
   entryId = null,
 }) => {
   try {
-    if (url === "calculateAppointmentDiff") {
+    if (url === "paymentFlagLogic") {
       const res = await axios.get(BASE_URL + `${url}/${entryId}`);
       return res.data;
     }

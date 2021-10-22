@@ -32,7 +32,7 @@ const PaymentMethods = () => {
       }
 
       const { payOnline } = await getAPI({
-        url: "calculateAppointmentDiff",
+        url: "paymentFlagLogic",
         entryId,
       });
       setPayOnline(payOnline);
