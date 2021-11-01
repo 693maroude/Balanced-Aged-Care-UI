@@ -22,7 +22,7 @@ const PinPayment = () => {
 
       //values required for payment
       const description = entryValues["fee-schedule"]["service-type"];
-      const amount = entryValues["fee-schedule"]["email-fee-pricing"];
+      const amount = entryValues["fee-schedule"]["feeAmount"];
       const date = new Date().toISOString();
 
       const queryParams = queryString.stringify({
